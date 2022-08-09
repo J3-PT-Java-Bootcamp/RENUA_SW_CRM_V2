@@ -1,13 +1,15 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
 import com.ironhack.renua_sw_crm_v2.model.Lead;
-import org.junit.jupiter.api.Test;import org.junit.*;
+import com.ironhack.renua_sw_crm_v2.model.SalesRep;
+import org.junit.jupiter.api.Test;
+import org.junit.*;
 
 public class LeadServiceTest {
 
 
     private Lead getLead() {
-        return new Lead("Name", "555555555", "name@renuasw.org", "Renua SW");
+        return new Lead("Name", "555555555", "name@renuasw.org", "Renua SW", new SalesRep("Sergi"));
     }
 
     @Test

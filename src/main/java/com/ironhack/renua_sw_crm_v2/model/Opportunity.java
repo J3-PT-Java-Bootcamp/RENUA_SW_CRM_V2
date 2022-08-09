@@ -2,58 +2,46 @@ package com.ironhack.renua_sw_crm_v2.model;
 
 import com.ironhack.renua_sw_crm_v2.enums.Product;
 import com.ironhack.renua_sw_crm_v2.enums.Status;
-import com.ironhack.renua_sw_crm_v2.serialize.Serialize;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.UUID;
 
-public class Opportunity extends Serialize {
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+public class Opportunity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Enumerated(EnumType.STRING)
     private Product product;
     private int quantity;
-    private UUID decisionMaker;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "contact_id")
+    private Contact decisionMaker;
+    @Enumerated(EnumType.STRING)
     private Status status;
 
-    static {
-        serialVersionUID = 2L; // No modify
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id")
+    private Account account;
 
-    public Opportunity(Product product, int quantity, UUID decisionMaker, Status status) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sales_rep_id")
+    private SalesRep salesRep;
+
+    public Opportunity(Product product, int quantity, Contact decisionMaker, Status status, SalesRep salesRep) {
         setProduct(product);
         setQuantity(quantity);
         setDecisionMaker(decisionMaker);
         setStatus(status);
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public UUID getDecisionMaker() {
-        return decisionMaker;
-    }
-
-    public void setDecisionMaker(UUID decisionMaker) {
-        this.decisionMaker = decisionMaker;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
+        setSalesRep(salesRep);
     }
 
     @Override

@@ -1,17 +1,30 @@
 package com.ironhack.renua_sw_crm_v2.model;
 
-import com.ironhack.renua_sw_crm_v2.serialize.Serialize;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-public class SalesRep extends Serialize {
+import javax.persistence.*;
+import java.util.List;
 
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@Table(name = "SalesRep")
+public class SalesRep {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private String name;
-
-    static {
-        serialVersionUID = 6L; // No modify
-    }
+    @OneToMany(mappedBy = "salesRep")
+    List<Lead> leadList;
+    @OneToMany(mappedBy = "salesRep")
+    List<Opportunity> opportunityList;
 
     public SalesRep(String name) {
-        this.name = name;
+        setName(name);
     }
 
     public String getName() {

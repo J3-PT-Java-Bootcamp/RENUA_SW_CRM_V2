@@ -12,7 +12,7 @@ When running the project, the first recommended command to use is "help", which 
 ![Class_Diagram.png](CRM_UML_ClassDiagram.png)
 
 ### UML Use Case Diagram
-![Use_Diagram.png](Use_Diagram.png)
+![usecase.drawio.png](usecase.drawio.png)
 
 ### Serialization
 Serialization is the process of converting Java objects into a stream of bytes (array of bytes).

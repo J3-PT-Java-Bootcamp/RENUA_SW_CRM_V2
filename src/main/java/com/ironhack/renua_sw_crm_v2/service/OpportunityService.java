@@ -5,27 +5,26 @@ import com.ironhack.renua_sw_crm_v2.enums.Status;
 import com.ironhack.renua_sw_crm_v2.model.Contact;
 import com.ironhack.renua_sw_crm_v2.model.Lead;
 import com.ironhack.renua_sw_crm_v2.model.Opportunity;
-import com.ironhack.renua_sw_crm_v2.serialize.SerializeService;
+import com.ironhack.renua_sw_crm_v2.model.SalesRep;
 import com.ironhack.renua_sw_crm_v2.userinput.UserInput;
 
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class OpportunityService {
 
-    private static final Map<UUID, Opportunity> opportunities = new HashMap<>();
+    private static final Map<Long, Opportunity> opportunities = new HashMap<>();
 
-    static {
-        var objects = SerializeService.getAll();
-        objects.forEach((id, object) -> {
-            if(object instanceof Opportunity) {
-                var opportunity = (Opportunity) object;
-                opportunities.put(opportunity.getId(), opportunity);
-            }
-        });
-    }
+//    static {
+//        var objects = SerializeService.getAll();
+//        objects.forEach((id, object) -> {
+//            if(object instanceof Opportunity) {
+//                var opportunity = (Opportunity) object;
+//                opportunities.put(opportunity.getId(), opportunity);
+//            }
+//        });
+//    }
 
     public static Opportunity createOpportunity(Lead lead) {
         System.out.print("\nWrite product number:\n");
@@ -44,7 +43,10 @@ public class OpportunityService {
 
         System.out.print("Contact created: " + contact.getId() + "\n");
 
-        var opportunity = new Opportunity(product, trucksNum, contact.getId(), Status.OPEN);
+        // TODO: Ask for a Sales Rep
+        var salesRep = new SalesRep("John");
+
+        var opportunity = new Opportunity(product, trucksNum, contact, Status.OPEN, salesRep);
         put(opportunity);
 
         System.out.print("Opportunity created: " + opportunity.getId() + "\n");
@@ -52,7 +54,7 @@ public class OpportunityService {
         return opportunity;
     }
 
-    public static void  updateStatus(UUID id, Status status) {
+    public static void  updateStatus(Long id, Status status) {
         var opportunity = getById(id);
 
         if(opportunity.getStatus() == Status.OPEN) {
@@ -70,17 +72,16 @@ public class OpportunityService {
         });
     }
 
-    public static void show(UUID id) {
+    public static void show(Long id) {
         final var opportunity = getById(id);
         System.out.println(opportunity.toString());
     }
 
-    public static Opportunity getById(UUID id) {
+    public static Opportunity getById(Long id) {
         return opportunities.get(id);
     }
 
     public static void put(Opportunity opportunity) {
         opportunities.put(opportunity.getId(), opportunity);
-        SerializeService.put(opportunity);
     }
 }
