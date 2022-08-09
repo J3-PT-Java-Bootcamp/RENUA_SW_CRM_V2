@@ -23,9 +23,6 @@ public class User {
     protected String email;
     protected String companyName;
 
-    // TODO: Add salesRep id attribute
-
-
     public User(String name, String phoneNumber, String email, String companyName) {
         setName(name);
         setPhoneNumber(phoneNumber);
