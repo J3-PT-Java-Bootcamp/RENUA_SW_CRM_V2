@@ -1,13 +1,12 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
-import com.ironhack.enums.Product;
-import com.ironhack.enums.Status;
-import com.ironhack.model.Opportunity;
-import junit.framework.TestCase;
+import com.ironhack.renua_sw_crm_v2.enums.Product;
+import com.ironhack.renua_sw_crm_v2.enums.Status;
+import com.ironhack.renua_sw_crm_v2.model.Opportunity;
 
 import java.util.UUID;
 
-public class OpportunityServiceTest extends TestCase {
+public class OpportunityServiceTest {
 
     public void testShow() {
         OpportunityService.show();

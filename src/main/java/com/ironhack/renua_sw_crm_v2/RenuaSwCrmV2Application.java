@@ -1,6 +1,6 @@
 package com.ironhack.renua_sw_crm_v2;
 
-import org.springframework.boot.SpringApplication;
+import com.ironhack.renua_sw_crm_v2.service.CRMStarterService;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication

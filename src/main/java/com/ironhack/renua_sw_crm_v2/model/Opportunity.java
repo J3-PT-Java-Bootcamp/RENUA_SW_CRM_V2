@@ -1,8 +1,8 @@
 package com.ironhack.renua_sw_crm_v2.model;
 
-import com.ironhack.enums.Product;
-import com.ironhack.enums.Status;
-import com.ironhack.serialize.Serialize;
+import com.ironhack.renua_sw_crm_v2.enums.Product;
+import com.ironhack.renua_sw_crm_v2.enums.Status;
+import com.ironhack.renua_sw_crm_v2.serialize.Serialize;
 
 import java.util.UUID;
 
@@ -64,6 +64,6 @@ public class Opportunity extends Serialize {
                 "  quantity=" + quantity +  "\n" +
                 "  decisionMaker=" + decisionMaker +  "\n" +
                 "  status=" + status +  "\n" +
-                "  }";
+                "}";
     }
 }

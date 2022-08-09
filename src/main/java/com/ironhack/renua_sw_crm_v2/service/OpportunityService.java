@@ -1,10 +1,13 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
-import com.ironhack.enums.Product;
-import com.ironhack.enums.Status;
-import com.ironhack.model.*;
-import com.ironhack.serialize.SerializeService;
-import com.ironhack.userinput.UserInput;
+import com.ironhack.renua_sw_crm_v2.enums.Product;
+import com.ironhack.renua_sw_crm_v2.enums.Status;
+import com.ironhack.renua_sw_crm_v2.model.Contact;
+import com.ironhack.renua_sw_crm_v2.model.Lead;
+import com.ironhack.renua_sw_crm_v2.model.Opportunity;
+import com.ironhack.renua_sw_crm_v2.serialize.SerializeService;
+import com.ironhack.renua_sw_crm_v2.userinput.UserInput;
+
 
 import java.util.HashMap;
 import java.util.Map;

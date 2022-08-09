@@ -1,6 +1,6 @@
 package com.ironhack.renua_sw_crm_v2.model;
 
-import com.ironhack.serialize.Serialize;
+import com.ironhack.renua_sw_crm_v2.serialize.Serialize;
 
 public abstract class User extends Serialize {
 

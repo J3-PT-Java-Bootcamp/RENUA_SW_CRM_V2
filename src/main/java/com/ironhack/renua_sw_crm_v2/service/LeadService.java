@@ -1,8 +1,8 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
-import com.ironhack.model.Lead;
-import com.ironhack.serialize.SerializeService;
-import com.ironhack.userinput.UserInput;
+import com.ironhack.renua_sw_crm_v2.model.Lead;
+import com.ironhack.renua_sw_crm_v2.serialize.SerializeService;
+import com.ironhack.renua_sw_crm_v2.userinput.UserInput;
 
 import java.util.HashMap;
 import java.util.Map;

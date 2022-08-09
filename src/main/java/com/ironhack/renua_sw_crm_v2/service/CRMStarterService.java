@@ -1,9 +1,10 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
-import com.ironhack.commander.Command;
-import com.ironhack.commander.Commander;
-import com.ironhack.enums.CommandType;
-import com.ironhack.enums.Status;
+
+import com.ironhack.renua_sw_crm_v2.commander.Command;
+import com.ironhack.renua_sw_crm_v2.commander.Commander;
+import com.ironhack.renua_sw_crm_v2.enums.CommandType;
+import com.ironhack.renua_sw_crm_v2.enums.Status;
 
 public class CRMStarterService {
 
@@ -23,14 +24,17 @@ public class CRMStarterService {
                     System.out.println("\t3. show opportunities - Show all opportunities");
                     System.out.println("\t4. show accounts - Show all accounts");
                     System.out.println("\t5. show contacts - Show all contacts");
-                    System.out.println("\t6. lookup lead :id - Show a lead by id");
-                    System.out.println("\t7. lookup opportunity :id - Show an opportunity by id");
-                    System.out.println("\t8. lookup account :id - Show an account by id");
-                    System.out.println("\t9. lookup contact :id - Show a contact by id");
-                    System.out.println("\t10. convert :id - Convert a lead to a contact related with an opportunity and an account by lead id");
-                    System.out.println("\t11. close-lost :id - Close an opportunity as lost by id");
-                    System.out.println("\t11. close-won :id - Close an opportunity as won by id");
-                    System.out.println("\t12. exit - Exit the program");
+                    System.out.println("\t6. show salesrep - Show all sales reps");
+                    System.out.println("\t7. lookup lead :id - Show a lead by id");
+                    System.out.println("\t8. lookup opportunity :id - Show an opportunity by id");
+                    System.out.println("\t9. lookup account :id - Show an account by id");
+                    System.out.println("\t10. lookup contact :id - Show a contact by id");
+                    System.out.println("\t11. lookup salesrep :id - Show a sales rep by id");
+                    System.out.println("\t12. convert :id - Convert a lead to a contact related with an opportunity and an account by lead id");
+                    System.out.println("\t13. close-lost :id - Close an opportunity as lost by id");
+                    System.out.println("\t14. close-won :id - Close an opportunity as won by id");
+                    System.out.println("\t15. new salesrep - Create a new sales rep");
+                    System.out.println("\t16. exit - Exit the program");
                 }),
 
                 // Show commands
@@ -46,6 +50,9 @@ public class CRMStarterService {
                 new Command<>("show contacts", CommandType.SHOW_CONTACTS).addOnRun((cr) -> {
                     ContactService.show();
                 }),
+                new Command<>("show salesRep", CommandType.SHOW_SALESREP).addOnRun((cr) -> {
+                    SalesRepService.show();
+                }),
 
                 // Lookup commands
                 new Command<>("lookup lead :id", CommandType.LOOKUP_LEAD_ID).addOnRun((cr) -> {
@@ -59,6 +66,9 @@ public class CRMStarterService {
                 }),
                 new Command<>("lookup account :id", CommandType.LOOKUP_ACCOUNT_ID).addOnRun((cr) -> {
                     AccountService.show(cr.getUuidParameter("id"));
+                }),
+                new Command<>("lookup salesRep :id", CommandType.LOOKUP_SALESREP_ID).addOnRun((cr) -> {
+                    SalesRepService.show(cr.getUuidParameter("id"));
                 }),
 
                 // Lead commands
@@ -75,6 +85,11 @@ public class CRMStarterService {
                 }),
                 new Command<>("close-won :id", CommandType.CLOSE_WON).addOnRun((cr) -> {
                     OpportunityService.updateStatus(cr.getUuidParameter("id"), Status.CLOSED_WON);
+                }),
+
+                // SalesRep commands
+                new Command<>("New SalesRep", CommandType.NEW_SALESREP).addOnRun((cr) -> {
+                    SalesRepService.createSalesRep();
                 }),
         });
 

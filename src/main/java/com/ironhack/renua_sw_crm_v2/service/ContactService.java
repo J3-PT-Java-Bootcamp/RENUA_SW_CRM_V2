@@ -1,7 +1,7 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
-import com.ironhack.model.Contact;
-import com.ironhack.serialize.SerializeService;
+import com.ironhack.renua_sw_crm_v2.model.Contact;
+import com.ironhack.renua_sw_crm_v2.serialize.SerializeService;
 
 import java.util.HashMap;
 import java.util.Map;

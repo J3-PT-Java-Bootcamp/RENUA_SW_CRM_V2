@@ -1,6 +1,6 @@
 package com.ironhack.renua_sw_crm_v2.commander;
 
-import com.ironhack.userinput.UserInput;
+import com.ironhack.renua_sw_crm_v2.userinput.UserInput;
 
 public class Commander<T> {
     private final Command<T>[] commands;

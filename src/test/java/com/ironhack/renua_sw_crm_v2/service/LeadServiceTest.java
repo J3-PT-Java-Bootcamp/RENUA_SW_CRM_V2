@@ -1,10 +1,9 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
-import com.ironhack.model.Lead;
-import junit.framework.TestCase;
-import org.junit.*;
+import com.ironhack.renua_sw_crm_v2.model.Lead;
+import org.junit.jupiter.api.Test;import org.junit.*;
 
-public class LeadServiceTest extends TestCase {
+public class LeadServiceTest {
 
 
     private Lead getLead() {

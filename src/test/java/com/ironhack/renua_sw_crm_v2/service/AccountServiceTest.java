@@ -1,13 +1,12 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
-import com.ironhack.enums.Industry;
-import com.ironhack.model.Account;
-import junit.framework.TestCase;
+import com.ironhack.renua_sw_crm_v2.enums.Industry;
+import com.ironhack.renua_sw_crm_v2.model.Account;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class AccountServiceTest extends TestCase {
+public class AccountServiceTest {
 
     public void testShow() {
         AccountService.show();

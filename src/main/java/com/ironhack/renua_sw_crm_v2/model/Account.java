@@ -1,7 +1,8 @@
 package com.ironhack.renua_sw_crm_v2.model;
 
-import com.ironhack.enums.Industry;
-import com.ironhack.serialize.Serialize;
+
+import com.ironhack.renua_sw_crm_v2.enums.Industry;
+import com.ironhack.renua_sw_crm_v2.serialize.Serialize;
 
 import java.util.List;
 import java.util.UUID;
@@ -97,6 +98,6 @@ public class Account extends Serialize {
                 " companyName='" + companyName + '\'' + "\n" +
                 " contactList=" + contactList + "\n" +
                 " opportunityList=" + opportunityList + "\n" +
-                '}';
+                "}";
     }
 }
