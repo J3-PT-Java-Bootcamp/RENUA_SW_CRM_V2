@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "contact_user")
 public class Contact extends User {
 
     @ManyToOne(fetch = FetchType.LAZY)
