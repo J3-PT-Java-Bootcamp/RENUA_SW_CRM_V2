@@ -9,7 +9,7 @@ The entire project is controlled by keyboard commands. The data is stored in a s
 When running the project, the first recommended command to use is "help", which shows all possible commands to execute.
 
 ### UML Class Diagram
-![Class_Diagram.png](CRM_UML_ClassDiagram.png)
+![class_diagram.png](class_diagram.png)
 
 ### UML Use Case Diagram
 ![usecase.drawio.png](usecase.drawio.png)
