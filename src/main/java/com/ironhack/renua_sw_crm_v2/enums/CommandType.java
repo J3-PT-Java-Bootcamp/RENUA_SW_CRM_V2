@@ -14,6 +14,9 @@ public enum CommandType {
     LOOKUP_ACCOUNT_ID,
     CONVERT_LEAD,
     EXIT,
-    HELP
+    HELP,
+    NEW_SALESREP,
+    LOOKUP_SALESREP_ID,
+    SHOW_SALESREP,
 }
 

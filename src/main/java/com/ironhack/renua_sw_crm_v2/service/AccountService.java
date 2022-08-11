@@ -1,28 +1,27 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
-import com.ironhack.enums.Industry;
-import com.ironhack.model.Account;
-import com.ironhack.model.Opportunity;
-import com.ironhack.serialize.SerializeService;
-import com.ironhack.userinput.UserInput;
+import com.ironhack.renua_sw_crm_v2.enums.Industry;
+import com.ironhack.renua_sw_crm_v2.model.Account;
+import com.ironhack.renua_sw_crm_v2.model.Contact;
+import com.ironhack.renua_sw_crm_v2.model.Opportunity;
+import com.ironhack.renua_sw_crm_v2.userinput.UserInput;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class AccountService {
-    private static final Map<UUID, Account> accounts = new HashMap<>();
+    private static final Map<Long, Account> accounts = new HashMap<>();
 
-    static {
-        var objects = SerializeService.getAll();
-        objects.forEach((id, object) -> {
-            if(object instanceof Account) {
-                var account = (Account) object;
-                accounts.put(account.getId(), account);
-            }
-        });
-    }
+//    static {
+//        var objects = SerializeService.getAll();
+//        objects.forEach((id, object) -> {
+//            if(object instanceof Account) {
+//                var account = (Account) object;
+//                accounts.put(account.getId(), account);
+//            }
+//        });
+//    }
 
     public static Account createAccount(Opportunity opportunity) {
 
@@ -51,13 +50,13 @@ public class AccountService {
         System.out.print("\nWrite country:\n");
         String country = UserInput.readText();
 
-        var contact = ContactService.getById(opportunity.getDecisionMaker());
+        var contact = ContactService.getById(opportunity.getDecisionMaker().getId());
         var companyName = contact.getCompanyName();
 
-        var opportunityList = new ArrayList<UUID>();
-        opportunityList.add(opportunity.getId());
+        var opportunityList = new ArrayList<Opportunity>();
+        opportunityList.add(opportunity);
 
-        var contactList = new ArrayList<UUID>();
+        var contactList = new ArrayList<Contact>();
         contactList.add(opportunity.getDecisionMaker());
 
         var account = new Account(industry, employeeCount, city, country, companyName, contactList, opportunityList);
@@ -74,17 +73,16 @@ public class AccountService {
         });
     }
 
-    public static void show(UUID id) {
+    public static void show(Long id) {
         final var account = getById(id);
         System.out.println(account.toString());
     }
 
-    public static Account getById(UUID id) {
+    public static Account getById(Long id) {
         return accounts.get(id);
     }
 
     public static void put(Account account) {
         accounts.put(account.getId(), account);
-        SerializeService.put(account);
     }
 }

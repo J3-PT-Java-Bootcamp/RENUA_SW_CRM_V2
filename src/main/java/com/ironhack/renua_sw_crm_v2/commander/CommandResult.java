@@ -1,7 +1,6 @@
 package com.ironhack.renua_sw_crm_v2.commander;
 
 import java.util.Map;
-import java.util.UUID;
 
 public class CommandResult<T> {
     private Map<String, String> parameters;
@@ -32,7 +31,7 @@ public class CommandResult<T> {
         return getParameters().get(key);
     }
 
-    public UUID getUuidParameter(String key) {
-        return UUID.fromString((getParameters().get(key)));
+    public Long getLongParameter(String key) {
+        return Long.parseLong((getParameters().get(key)));
     }
 }
