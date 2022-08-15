@@ -19,6 +19,9 @@ public class LeadService {
     @Autowired
     LeadRepository leadRepository;
 
+    @Autowired
+    SalesRepService salesRepService;
+
     public Lead createLead() {
         System.out.print("\nLead name: ");
         final String name = UserInput.readText();
@@ -32,8 +35,9 @@ public class LeadService {
         System.out.print("\nCompany name");
         final String companyName = UserInput.readText();
 
-        // TODO: Ask for a Sales Rep
-        var salesRep = new SalesRep("John");
+        System.out.println("\nSales Rep id");
+        final Long salesRepId = Long.parseLong(UserInput.readText());
+        final SalesRep salesRep = salesRepService.getById(salesRepId);
 
         final var lead = new Lead(name, leadPn, leadEmail, companyName, salesRep);
         put(lead);

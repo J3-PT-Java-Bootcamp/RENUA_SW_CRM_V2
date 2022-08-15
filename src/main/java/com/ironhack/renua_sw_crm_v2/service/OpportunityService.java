@@ -37,10 +37,7 @@ public class OpportunityService {
 
         System.out.print("Contact created: " + contact.getId() + "\n");
 
-        // TODO: Ask for a Sales Rep
-        var salesRep = new SalesRep("John");
-
-        var opportunity = new Opportunity(product, trucksNum, contact, Status.OPEN, salesRep);
+        var opportunity = new Opportunity(product, trucksNum, contact, Status.OPEN, lead.getSalesRep());
         put(opportunity);
 
         System.out.print("Opportunity created: " + opportunity.getId() + "\n");
