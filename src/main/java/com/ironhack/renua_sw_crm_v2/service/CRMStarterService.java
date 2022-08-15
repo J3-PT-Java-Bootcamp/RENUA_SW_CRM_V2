@@ -6,7 +6,9 @@ import com.ironhack.renua_sw_crm_v2.commander.Commander;
 import com.ironhack.renua_sw_crm_v2.enums.CommandType;
 import com.ironhack.renua_sw_crm_v2.enums.Status;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CRMStarterService {
 
     @Autowired
@@ -66,7 +68,7 @@ public class CRMStarterService {
                 new Command<>("show contacts", CommandType.SHOW_CONTACTS).addOnRun((cr) -> {
                     contactService.show();
                 }),
-                new Command<>("show salesRep", CommandType.SHOW_SALESREP).addOnRun((cr) -> {
+                new Command<>("show salesrep", CommandType.SHOW_SALESREP).addOnRun((cr) -> {
                     salesRepService.show();
                 }),
 
@@ -104,7 +106,7 @@ public class CRMStarterService {
                 }),
 
                 // SalesRep commands
-                new Command<>("New SalesRep", CommandType.NEW_SALESREP).addOnRun((cr) -> {
+                new Command<>("new salesrep", CommandType.NEW_SALESREP).addOnRun((cr) -> {
                     salesRepService.createSalesRep();
                 }),
         });
@@ -117,9 +119,5 @@ public class CRMStarterService {
             if(command.getResult() == CommandType.EXIT) break;
         } while (true);
     }
-
-
-
-
 
 }

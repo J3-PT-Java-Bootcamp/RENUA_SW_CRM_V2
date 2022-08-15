@@ -3,7 +3,9 @@ package com.ironhack.renua_sw_crm_v2.service;
 import com.ironhack.renua_sw_crm_v2.Repository.ContactRepository;
 import com.ironhack.renua_sw_crm_v2.model.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ContactService {
 
     @Autowired
