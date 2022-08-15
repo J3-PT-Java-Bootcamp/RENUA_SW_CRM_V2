@@ -1,29 +1,24 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
+import com.ironhack.renua_sw_crm_v2.Repository.AccountRepository;
 import com.ironhack.renua_sw_crm_v2.enums.Industry;
 import com.ironhack.renua_sw_crm_v2.model.Account;
 import com.ironhack.renua_sw_crm_v2.model.Contact;
 import com.ironhack.renua_sw_crm_v2.model.Opportunity;
 import com.ironhack.renua_sw_crm_v2.userinput.UserInput;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class AccountService {
-    private static final Map<Long, Account> accounts = new HashMap<>();
 
-//    static {
-//        var objects = SerializeService.getAll();
-//        objects.forEach((id, object) -> {
-//            if(object instanceof Account) {
-//                var account = (Account) object;
-//                accounts.put(account.getId(), account);
-//            }
-//        });
-//    }
+    @Autowired
+    ContactService contactService;
 
-    public static Account createAccount(Opportunity opportunity) {
+    @Autowired
+    AccountRepository accountRepository;
+
+    public Account createAccount(Opportunity opportunity) {
 
         System.out.print("\nWrite industry number:\n");
 
@@ -50,7 +45,7 @@ public class AccountService {
         System.out.print("\nWrite country:\n");
         String country = UserInput.readText();
 
-        var contact = ContactService.getById(opportunity.getDecisionMaker().getId());
+        var contact = contactService.getById(opportunity.getDecisionMaker().getId());
         var companyName = contact.getCompanyName();
 
         var opportunityList = new ArrayList<Opportunity>();
@@ -67,22 +62,22 @@ public class AccountService {
         return account;
     }
 
-    public static void show() {
-        accounts.forEach((id, account) -> {
+    public void show() {
+        accountRepository.findAll().forEach((account) -> {
             System.out.println(account.toString());
         });
     }
 
-    public static void show(Long id) {
+    public void show(Long id) {
         final var account = getById(id);
         System.out.println(account.toString());
     }
 
-    public static Account getById(Long id) {
-        return accounts.get(id);
+    public Account getById(Long id) {
+        return accountRepository.findById(id).get();
     }
 
-    public static void put(Account account) {
-        accounts.put(account.getId(), account);
+    public void put(Account account) {
+        accountRepository.save(account);
     }
 }

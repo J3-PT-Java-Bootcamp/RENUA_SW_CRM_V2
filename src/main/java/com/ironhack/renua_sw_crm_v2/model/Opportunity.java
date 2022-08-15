@@ -1,5 +1,6 @@
 package com.ironhack.renua_sw_crm_v2.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ironhack.renua_sw_crm_v2.enums.Product;
 import com.ironhack.renua_sw_crm_v2.enums.Status;
 import lombok.Getter;
@@ -29,6 +30,7 @@ public class Opportunity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
+    @JsonIgnore
     private Account account;
 
     @ManyToOne(fetch = FetchType.LAZY)

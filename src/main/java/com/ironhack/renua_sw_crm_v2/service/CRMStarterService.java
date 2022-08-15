@@ -5,8 +5,24 @@ import com.ironhack.renua_sw_crm_v2.commander.Command;
 import com.ironhack.renua_sw_crm_v2.commander.Commander;
 import com.ironhack.renua_sw_crm_v2.enums.CommandType;
 import com.ironhack.renua_sw_crm_v2.enums.Status;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class CRMStarterService {
+
+    @Autowired
+    SalesRepService salesRepService;
+
+    @Autowired
+    ContactService contactService;
+
+    @Autowired
+    AccountService accountService;
+
+    @Autowired
+    OpportunityService opportunityService;
+
+    @Autowired
+    LeadService leadService;
 
     public CRMStarterService() {
 
@@ -39,57 +55,57 @@ public class CRMStarterService {
 
                 // Show commands
                 new Command<>("show leads", CommandType.SHOW_LEADS).addOnRun((cr) -> {
-                    LeadService.show();
+                    leadService.show();
                 }),
                 new Command<>("show opportunities", CommandType.SHOW_OPPORTUNITIES).addOnRun((cr) -> {
-                    OpportunityService.show();
+                    opportunityService.show();
                 }),
                 new Command<>("show accounts", CommandType.SHOW_ACCOUNTS).addOnRun((cr) -> {
-                    AccountService.show();
+                    accountService.show();
                 }),
                 new Command<>("show contacts", CommandType.SHOW_CONTACTS).addOnRun((cr) -> {
-                    ContactService.show();
+                    contactService.show();
                 }),
                 new Command<>("show salesRep", CommandType.SHOW_SALESREP).addOnRun((cr) -> {
-                    SalesRepService.show();
+                    salesRepService.show();
                 }),
 
                 // Lookup commands
                 new Command<>("lookup lead :id", CommandType.LOOKUP_LEAD_ID).addOnRun((cr) -> {
-                    LeadService.show(cr.getLongParameter("id"));
+                    leadService.show(cr.getLongParameter("id"));
                 }),
                 new Command<>("lookup contact :id", CommandType.LOOKUP_CONTACT_ID).addOnRun((cr) -> {
-                    ContactService.show(cr.getLongParameter("id"));
+                    contactService.show(cr.getLongParameter("id"));
                 }),
                 new Command<>("lookup opportunity :id", CommandType.LOOKUP_OPPORTUNITY_ID).addOnRun((cr) -> {
-                    OpportunityService.show(cr.getLongParameter("id"));
+                    opportunityService.show(cr.getLongParameter("id"));
                 }),
                 new Command<>("lookup account :id", CommandType.LOOKUP_ACCOUNT_ID).addOnRun((cr) -> {
-                    AccountService.show(cr.getLongParameter("id"));
+                    accountService.show(cr.getLongParameter("id"));
                 }),
                 new Command<>("lookup salesRep :id", CommandType.LOOKUP_SALESREP_ID).addOnRun((cr) -> {
-                    SalesRepService.show(cr.getLongParameter("id"));
+                    salesRepService.show(cr.getLongParameter("id"));
                 }),
 
                 // Lead commands
                 new Command<>("convert :id", CommandType.CONVERT_LEAD).addOnRun((cr) -> {
-                    LeadService.convertLeadToOpportunity(cr.getLongParameter("id"));
+                    leadService.convertLeadToOpportunity(cr.getLongParameter("id"));
                 }),
                 new Command<>("new lead", CommandType.NEW_LEAD).addOnRun((cr) -> {
-                    LeadService.createLead();
+                    leadService.createLead();
                 }),
 
                 // Change opportunity status commands
                 new Command<>("close-lost :id", CommandType.CLOSE_LOST).addOnRun((cr) -> {
-                    OpportunityService.updateStatus(cr.getLongParameter("id"), Status.CLOSED_LOST);
+                    opportunityService.updateStatus(cr.getLongParameter("id"), Status.CLOSED_LOST);
                 }),
                 new Command<>("close-won :id", CommandType.CLOSE_WON).addOnRun((cr) -> {
-                    OpportunityService.updateStatus(cr.getLongParameter("id"), Status.CLOSED_WON);
+                    opportunityService.updateStatus(cr.getLongParameter("id"), Status.CLOSED_WON);
                 }),
 
                 // SalesRep commands
                 new Command<>("New SalesRep", CommandType.NEW_SALESREP).addOnRun((cr) -> {
-                    SalesRepService.createSalesRep();
+                    salesRepService.createSalesRep();
                 }),
         });
 

@@ -1,5 +1,6 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
+import com.ironhack.renua_sw_crm_v2.Repository.OpportunityRepository;
 import com.ironhack.renua_sw_crm_v2.enums.Product;
 import com.ironhack.renua_sw_crm_v2.enums.Status;
 import com.ironhack.renua_sw_crm_v2.model.Contact;
@@ -7,26 +8,18 @@ import com.ironhack.renua_sw_crm_v2.model.Lead;
 import com.ironhack.renua_sw_crm_v2.model.Opportunity;
 import com.ironhack.renua_sw_crm_v2.model.SalesRep;
 import com.ironhack.renua_sw_crm_v2.userinput.UserInput;
+import org.springframework.beans.factory.annotation.Autowired;
 
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class OpportunityService {
 
-    private static final Map<Long, Opportunity> opportunities = new HashMap<>();
+    @Autowired
+    ContactService contactService;
 
-//    static {
-//        var objects = SerializeService.getAll();
-//        objects.forEach((id, object) -> {
-//            if(object instanceof Opportunity) {
-//                var opportunity = (Opportunity) object;
-//                opportunities.put(opportunity.getId(), opportunity);
-//            }
-//        });
-//    }
+    @Autowired
+    OpportunityRepository opportunityRepository;
 
-    public static Opportunity createOpportunity(Lead lead) {
+    public Opportunity createOpportunity(Lead lead) {
         System.out.print("\nWrite product number:\n");
 
         System.out.println("1: HYBRID");
@@ -39,7 +32,7 @@ public class OpportunityService {
         int trucksNum = UserInput.getIntBetween(0, 9999);
 
         var contact = new Contact(lead);
-        ContactService.put(contact);
+        contactService.put(contact);
 
         System.out.print("Contact created: " + contact.getId() + "\n");
 
@@ -54,7 +47,7 @@ public class OpportunityService {
         return opportunity;
     }
 
-    public static void  updateStatus(Long id, Status status) {
+    public void  updateStatus(Long id, Status status) {
         var opportunity = getById(id);
 
         if(opportunity.getStatus() == Status.OPEN) {
@@ -66,22 +59,22 @@ public class OpportunityService {
         }
     }
 
-    public static void show() {
-        opportunities.forEach((id, opportunity) -> {
+    public void show() {
+        opportunityRepository.findAll().forEach((opportunity -> {
             System.out.println(opportunity.toString());
-        });
+        }));
     }
 
-    public static void show(Long id) {
+    public void show(Long id) {
         final var opportunity = getById(id);
         System.out.println(opportunity.toString());
     }
 
-    public static Opportunity getById(Long id) {
-        return opportunities.get(id);
+    public Opportunity getById(Long id) {
+        return opportunityRepository.findById(id).get();
     }
 
-    public static void put(Opportunity opportunity) {
-        opportunities.put(opportunity.getId(), opportunity);
+    public void put(Opportunity opportunity) {
+        opportunityRepository.save(opportunity);
     }
 }

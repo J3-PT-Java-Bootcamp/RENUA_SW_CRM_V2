@@ -1,26 +1,23 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
+import com.ironhack.renua_sw_crm_v2.Repository.LeadRepository;
 import com.ironhack.renua_sw_crm_v2.model.Lead;
 import com.ironhack.renua_sw_crm_v2.model.SalesRep;
 import com.ironhack.renua_sw_crm_v2.userinput.UserInput;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class LeadService {
-    private static Map<Long, Lead> leads = new HashMap<>();
 
-//    static {
-//        var objects = SerializeService.getAll();
-//        objects.forEach((id, object) -> {
-//            if(object instanceof Lead) {
-//                var lead = (Lead) object;
-//                leads.put(lead.getId(), lead);
-//            }
-//        });
-//    }
+    @Autowired
+    AccountService accountService;
 
-    public static Lead createLead() {
+    @Autowired
+    OpportunityService opportunityService;
+
+    @Autowired
+    LeadRepository leadRepository;
+
+    public Lead createLead() {
         System.out.print("\nLead name: ");
         final String name = UserInput.readText();
 
@@ -44,34 +41,34 @@ public class LeadService {
         return lead;
     }
 
-    public static void convertLeadToOpportunity(Long id) {
+    public void convertLeadToOpportunity(Long id) {
         final var lead = getById(id);
         delete(lead);
-        var opportunity = OpportunityService.createOpportunity(lead);
+        var opportunity = opportunityService.createOpportunity(lead);
         System.out.print("\nNow create the account for the opportunity: " + opportunity.getId() + "\n");
-        AccountService.createAccount(opportunity);
+        accountService.createAccount(opportunity);
     }
 
-    public static void show() {
-        leads.forEach((id, lead) -> {
-            System.out.println(lead.toString("Lead"));
+    public void show() {
+        leadRepository.findAll().forEach((lead) -> {
+            System.out.println(lead.toString());
         });
     }
 
-    public static void show(Long id) {
+    public void show(Long id) {
         final var lead = getById(id);
         System.out.println(lead.toString("Lead"));
     }
 
-    public static <T> void delete(T lead) {
-        leads.remove(((Lead) lead).getId());
+    public void delete(Lead lead) {
+        leadRepository.delete(lead);
     }
 
-    public static Lead getById(Long id) {
-        return leads.get(id);
+    public Lead getById(Long id) {
+        return leadRepository.findById(id).get();
     }
 
-    public static void put(Lead lead) {
-        leads.put(lead.getId(), lead);
+    public void put(Lead lead) {
+        leadRepository.save(lead);
     }
 }

@@ -1,26 +1,17 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
+import com.ironhack.renua_sw_crm_v2.Repository.SalesRepRepository;
 import com.ironhack.renua_sw_crm_v2.model.SalesRep;
 import com.ironhack.renua_sw_crm_v2.userinput.UserInput;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class SalesRepService {
 
-    private static final Map<Long, SalesRep> salesReps = new HashMap<>();
+    @Autowired
+    SalesRepRepository salesRepRepository;
 
-//    static {
-//        var objects = SerializeService.getAll();
-//        objects.forEach((id, object) -> {
-//            if(object instanceof SalesRep) {
-//                var contact = (SalesRep) object;
-//                salesReps.put(contact.getId(), contact);
-//            }
-//        });
-//    }
-
-    public static SalesRep createSalesRep() {
+    public SalesRep createSalesRep() {
         System.out.print("\nWrite name:\n");
         var name = UserInput.readText();
 
@@ -32,22 +23,22 @@ public class SalesRepService {
         return salesRep;
     }
 
-    public static void show() {
-        salesReps.forEach((id, contact) -> {
-            System.out.println(contact.toString());
+    public void show() {
+        salesRepRepository.findAll().forEach((salesRep) -> {
+            System.out.println(salesRep.toString());
         });
     }
 
-    public static void show(Long id) {
+    public void show(Long id) {
         final var contact = getById(id);
         System.out.println(contact.toString());
     }
 
-    public static SalesRep getById(Long id) {
-        return salesReps.get(id);
+    public SalesRep getById(Long id) {
+        return salesRepRepository.findById(id).get();
     }
 
-    public static void put(SalesRep contact) {
-        salesReps.put(contact.getId(), contact);
+    public void put(SalesRep contact) {
+        salesRepRepository.save(contact);
     }
 }
