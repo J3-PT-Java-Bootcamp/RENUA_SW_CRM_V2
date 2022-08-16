@@ -1,6 +1,7 @@
 package com.renua_sw.crm_v2.renua_sw_crm_v2.service;
 
 import com.renua_sw.crm_v2.renua_sw_crm_v2.error.ErrorHelper;
+import com.renua_sw.crm_v2.renua_sw_crm_v2.error.NotFoundException;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.model.Lead;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.repository.LeadRepository;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.userinput.UserInput;
@@ -21,6 +22,21 @@ public class LeadService {
         final var row = leadRepository.findById(id);
         if(row.isEmpty()) ErrorHelper.notFound();
         else System.out.println(row.get().toString());
+    }
+
+    public Lead findById(int id) throws NotFoundException {
+        final var lead = leadRepository.findById(id);
+        if(lead.isEmpty()) throw new NotFoundException();
+
+        return lead.get();
+    }
+
+    public Lead findAndDeleteById(int id) throws NotFoundException {
+        final var lead = findById(id);
+
+        leadRepository.delete(lead);
+
+        return lead;
     }
 
     public Lead createLead() {

@@ -3,6 +3,8 @@ package com.renua_sw.crm_v2.renua_sw_crm_v2;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.commander.Command;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.commander.Commander;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.enums.CommandType;
+import com.renua_sw.crm_v2.renua_sw_crm_v2.error.ErrorHelper;
+import com.renua_sw.crm_v2.renua_sw_crm_v2.error.NotFoundException;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.service.AccountService;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.service.ContactService;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.service.LeadService;
@@ -85,12 +87,16 @@ public class RenuaSwCrmV2Application implements CommandLineRunner {
                 new Command<>("new lead", CommandType.NEW_LEAD).addOnRun((cr) -> {
                     leadService.createLead();
                 }),
-                /*new Command<>("convert :id", CommandType.CONVERT_LEAD).addOnRun((cr) -> {
-                    leadService.convertLeadToOpportunity(cr.getUuidParameter("id"));
+                new Command<>("convert :id", CommandType.CONVERT_LEAD).addOnRun((cr) -> {
+                    try {
+                        opportunityService.createFromLead(cr.getIntParameter("id"));
+                    } catch (NotFoundException e) {
+                        ErrorHelper.notFound();
+                    }
                 }),
 
                 // Change opportunity status commands
-                new Command<>("close-lost :id", CommandType.CLOSE_LOST).addOnRun((cr) -> {
+                /*new Command<>("close-lost :id", CommandType.CLOSE_LOST).addOnRun((cr) -> {
                     opportunityService.updateStatus(cr.getUuidParameter("id"), Status.CLOSED_LOST);
                 }),
                 new Command<>("close-won :id", CommandType.CLOSE_WON).addOnRun((cr) -> {

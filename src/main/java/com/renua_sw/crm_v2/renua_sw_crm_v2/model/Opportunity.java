@@ -31,4 +31,11 @@ public class Opportunity {
     @Column
     @Enumerated(EnumType.STRING)
     OpportunityStatus status;
+
+    public Opportunity(ProductType product, int trucksNum, Contact contact, OpportunityStatus status) {
+        setProduct(product);
+        setQuantity(trucksNum);
+        setDecisionMaker(contact);
+        setStatus(status);
+    }
 }
