@@ -6,10 +6,7 @@ import com.renua_sw.crm_v2.renua_sw_crm_v2.enums.CommandType;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.enums.OpportunityStatus;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.error.ErrorHelper;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.error.NotFoundException;
-import com.renua_sw.crm_v2.renua_sw_crm_v2.service.AccountService;
-import com.renua_sw.crm_v2.renua_sw_crm_v2.service.ContactService;
-import com.renua_sw.crm_v2.renua_sw_crm_v2.service.LeadService;
-import com.renua_sw.crm_v2.renua_sw_crm_v2.service.OpportunityService;
+import com.renua_sw.crm_v2.renua_sw_crm_v2.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -29,6 +26,9 @@ public class RenuaSwCrmV2Application implements CommandLineRunner {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private SalesRepService salesRepService;
 
     public static void main(String[] args) {
         SpringApplication.run(RenuaSwCrmV2Application.class, args);
@@ -110,6 +110,12 @@ public class RenuaSwCrmV2Application implements CommandLineRunner {
                     } catch (NotFoundException e) {
                         ErrorHelper.notFound();
                     }
+                }),
+                new Command<>("new salesrep", CommandType.NEW_SALESREP).addOnRun((cr) -> {
+                    salesRepService.create();
+                }),
+                new Command<>("show salesrep", CommandType.SALESREP_LIST).addOnRun((cr) -> {
+                    salesRepService.show();
                 }),
         });
 

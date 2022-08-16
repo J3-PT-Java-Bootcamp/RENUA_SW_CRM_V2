@@ -13,6 +13,8 @@ public enum CommandType {
     LOOKUP_OPPORTUNITY_ID,
     LOOKUP_ACCOUNT_ID,
     CONVERT_LEAD,
+    NEW_SALESREP,
+    SALESREP_LIST,
     EXIT,
     HELP
 }
