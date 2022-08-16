@@ -2,6 +2,7 @@ package com.renua_sw.crm_v2.renua_sw_crm_v2.service;
 
 import com.renua_sw.crm_v2.renua_sw_crm_v2.enums.IndustryType;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.error.ErrorHelper;
+import com.renua_sw.crm_v2.renua_sw_crm_v2.error.NotFoundException;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.model.Account;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.model.Opportunity;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.repository.AccountRepository;
@@ -23,6 +24,12 @@ public class AccountService {
         final var row = accountRepository.findById(id);
         if(row.isEmpty()) ErrorHelper.notFound();
         else System.out.println(row.get().toString());
+    }
+
+    public Account findById(int id) throws NotFoundException {
+        final var entity = accountRepository.findById(id);
+        if(entity.isEmpty()) throw new NotFoundException();
+        return entity.get();
     }
 
     public Account createAccount() {

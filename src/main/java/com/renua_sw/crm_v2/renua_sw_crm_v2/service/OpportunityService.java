@@ -65,10 +65,16 @@ public class OpportunityService {
         opportunityRepository.save(opportunity);
         System.out.print("Opportunity created: " + opportunity.getId() + "\n");
 
-        final var account = accountService.createAccount();
-
-        // IDK: I added this in case is necessary
-        accountService.addOpportunity(account, opportunity);
+        System.out.println("Would you like to create a new Account? (Y/N)");
+        if(UserInput.getYesNo()) {
+            final var account = accountService.createAccount();
+            accountService.addOpportunity(account, opportunity);
+            System.out.println("Accout created: " + account.getId());
+        } else {
+            final int accountId = UserInput.getIntBetween(0, 999999);
+            final var account = accountService.findById(accountId);
+            accountService.addOpportunity(account, opportunity);
+        }
 
         return opportunity;
     }

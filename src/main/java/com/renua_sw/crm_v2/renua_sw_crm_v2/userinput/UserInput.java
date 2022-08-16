@@ -19,4 +19,9 @@ public class UserInput {
             }
         } while(true);
     }
+
+    public static boolean getYesNo() {
+        String res = readText().toLowerCase();
+        return res.equals("y");
+    }
 }
