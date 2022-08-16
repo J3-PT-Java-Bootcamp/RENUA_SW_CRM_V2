@@ -8,7 +8,7 @@
         <version>2.7.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.ironhack</groupId>
+    <groupId>com.RENUA_SW.CRM_V2</groupId>
     <artifactId>RENUA_SW_CRM_V2</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>RENUA_SW_CRM_V2</name>
