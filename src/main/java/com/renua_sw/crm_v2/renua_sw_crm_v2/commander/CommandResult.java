@@ -34,7 +34,7 @@ public class CommandResult<T> {
         return getParameters().get(key);
     }
 
-    public UUID getUuidParameter(String key) {
-        return UUID.fromString((getParameters().get(key)));
+    public int getIntParameter(String key) {
+        return Integer.parseInt(getParameters().get(key));
     }
 }
