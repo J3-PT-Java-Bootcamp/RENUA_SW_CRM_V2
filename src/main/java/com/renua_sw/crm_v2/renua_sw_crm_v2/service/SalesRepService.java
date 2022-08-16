@@ -18,6 +18,7 @@ public class SalesRepService {
 
     public SalesRep create() {
         final var salesRep = new SalesRep();
+        System.out.println("\nName:");
         salesRep.setName(UserInput.readText());
 
         salesRepRepository.save(salesRep);
