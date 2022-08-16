@@ -5,9 +5,12 @@ import com.ironhack.renua_sw_crm_v2.enums.Industry;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -24,12 +27,14 @@ public class Account {
     private String city;
     private String country;
     private String companyName;
-    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    List<Contact> contactList;
-    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    List<Opportunity> opportunityList;
+    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    Set<Contact> contactList;
+    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    Set<Opportunity> opportunityList;
 
-    public Account(Industry industry, int employeeCount, String city, String country, String companyName, List<Contact> contactList, List<Opportunity> opportunityList) {
+    public Account(Industry industry, int employeeCount, String city, String country, String companyName, Set<Contact> contactList, Set<Opportunity> opportunityList) {
         setIndustry(industry);
         setEmployeeCount(employeeCount);
         setCity(city);

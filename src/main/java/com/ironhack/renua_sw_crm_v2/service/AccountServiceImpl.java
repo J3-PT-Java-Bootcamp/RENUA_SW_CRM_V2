@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -51,10 +53,10 @@ public class AccountServiceImpl implements AccountService {
         var contact = contactService.getById(opportunity.getDecisionMaker().getId());
         var companyName = contact.getCompanyName();
 
-        var opportunityList = new ArrayList<Opportunity>();
+        Set opportunityList = new HashSet();
         opportunityList.add(opportunity);
 
-        var contactList = new ArrayList<Contact>();
+        Set contactList = new HashSet();
         contactList.add(opportunity.getDecisionMaker());
 
         var account = new Account(industry, employeeCount, city, country, companyName, contactList, opportunityList);

@@ -30,7 +30,7 @@ public class Opportunity {
     private Status status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinTable(name = "account")
+    @JoinColumn(name = "account_id")
     @JsonIgnore
     private Account account;
 

@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Contact extends User {
 
     @ManyToOne()
-    @JoinTable(name = "account")
+    @JoinColumn(name = "account_id")
     @JsonIgnore
     private Account account;
 
