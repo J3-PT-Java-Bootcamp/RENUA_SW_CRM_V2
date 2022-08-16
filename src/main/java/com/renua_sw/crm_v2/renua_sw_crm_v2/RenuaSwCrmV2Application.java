@@ -3,6 +3,7 @@ package com.renua_sw.crm_v2.renua_sw_crm_v2;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.commander.Command;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.commander.Commander;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.enums.CommandType;
+import com.renua_sw.crm_v2.renua_sw_crm_v2.enums.OpportunityStatus;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.error.ErrorHelper;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.error.NotFoundException;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.service.AccountService;
@@ -96,12 +97,20 @@ public class RenuaSwCrmV2Application implements CommandLineRunner {
                 }),
 
                 // Change opportunity status commands
-                /*new Command<>("close-lost :id", CommandType.CLOSE_LOST).addOnRun((cr) -> {
-                    opportunityService.updateStatus(cr.getUuidParameter("id"), Status.CLOSED_LOST);
+                new Command<>("close-lost :id", CommandType.CLOSE_LOST).addOnRun((cr) -> {
+                    try {
+                        opportunityService.updateStatus(cr.getIntParameter("id"), OpportunityStatus.CLOSED_LOST);
+                    } catch (NotFoundException e) {
+                        ErrorHelper.notFound();
+                    }
                 }),
                 new Command<>("close-won :id", CommandType.CLOSE_WON).addOnRun((cr) -> {
-                    opportunityService.updateStatus(cr.getUuidParameter("id"), Status.CLOSED_WON);
-                }),*/
+                    try {
+                        opportunityService.updateStatus(cr.getIntParameter("id"), OpportunityStatus.CLOSED_WON);
+                    } catch (NotFoundException e) {
+                        ErrorHelper.notFound();
+                    }
+                }),
         });
 
         commander.setAutorun(true);

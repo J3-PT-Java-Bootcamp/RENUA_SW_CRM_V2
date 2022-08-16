@@ -36,6 +36,12 @@ public class OpportunityService {
         else System.out.println(row.get().toString());
     }
 
+    public Opportunity findById(int id) throws NotFoundException {
+        final var entity = opportunityRepository.findById(id);
+        if(entity.isEmpty()) throw new NotFoundException();
+        return entity.get();
+    }
+
     public Opportunity createFromLead(int leadId) throws NotFoundException {
         final var lead = leadService.findAndDeleteById(leadId);
 
@@ -65,5 +71,11 @@ public class OpportunityService {
         accountService.addOpportunity(account, opportunity);
 
         return opportunity;
+    }
+
+    public void updateStatus(int id, OpportunityStatus status) throws NotFoundException {
+        final var opportunity = findById(id);
+        opportunity.setStatus(status);
+        opportunityRepository.save(opportunity);
     }
 }
