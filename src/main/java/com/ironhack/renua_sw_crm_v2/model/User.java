@@ -30,13 +30,14 @@ public class User {
         setCompanyName(companyName);
     }
 
-    public String toString(String className) {
+    public String toString(String className, String extraAppend) {
         return className+"{" +  "\n" +
                 "  id=" + id +  "\n" +
                 "  name='" + name + '\'' +  "\n" +
                 "  phoneNumber='" + phoneNumber + '\'' +  "\n" +
                 "  email='" + email + '\'' +  "\n" +
                 "  companyName='" + companyName + '\'' +  "\n" +
+                "  " + extraAppend +
                 "}";
     }
 }

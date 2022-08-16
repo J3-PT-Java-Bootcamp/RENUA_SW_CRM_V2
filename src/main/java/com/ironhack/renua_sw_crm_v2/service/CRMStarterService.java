@@ -6,6 +6,8 @@ import com.ironhack.renua_sw_crm_v2.commander.Commander;
 import com.ironhack.renua_sw_crm_v2.enums.CommandType;
 import com.ironhack.renua_sw_crm_v2.enums.Status;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,7 +28,8 @@ public class CRMStarterService {
     @Autowired
     LeadService leadService;
 
-    public CRMStarterService() {
+    @EventListener(ApplicationReadyEvent.class)
+    public void CRMStarterService() {
 
         System.out.println("Hello, welcome to the RENUA CRM!");
         System.out.println("Type 'help' to see the available commands");

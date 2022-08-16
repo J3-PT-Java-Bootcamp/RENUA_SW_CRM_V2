@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ContactServiceTest {
 
     @Autowired
-    ContactService contactService;
+    ContactServiceImpl contactService;
 
     public void testShow() {
         contactService.show();

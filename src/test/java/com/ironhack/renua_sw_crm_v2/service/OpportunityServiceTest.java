@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class OpportunityServiceTest {
 
     @Autowired
-    OpportunityService opportunityService;
+    OpportunityServiceImpl opportunityService;
 
     public void testShow() {
         opportunityService.show();

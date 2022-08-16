@@ -25,6 +25,7 @@ public class Opportunity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "contact_id")
     private Contact decisionMaker;
+
     @Enumerated(EnumType.STRING)
     private Status status;
 
@@ -53,6 +54,8 @@ public class Opportunity {
                 "  quantity=" + quantity +  "\n" +
                 "  decisionMaker=" + decisionMaker +  "\n" +
                 "  status=" + status +  "\n" +
+                "  salesRep=" + salesRep.getId() +  "\n" +
                 "}";
     }
+
 }

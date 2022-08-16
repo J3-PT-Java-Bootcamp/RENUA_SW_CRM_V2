@@ -3,13 +3,12 @@ package com.ironhack.renua_sw_crm_v2.service;
 import com.ironhack.renua_sw_crm_v2.model.Lead;
 import com.ironhack.renua_sw_crm_v2.model.SalesRep;
 import org.junit.jupiter.api.Test;
-import org.junit.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class LeadServiceTest {
 
     @Autowired
-    LeadService leadService;
+    LeadServiceImpl leadService;
 
     private Lead getLead() {
         return new Lead("Name", "555555555", "name@renuasw.org", "Renua SW", new SalesRep("Sergi"));

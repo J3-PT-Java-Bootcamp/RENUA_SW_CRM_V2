@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class AccountServiceTest {
 
     @Autowired
-    AccountService accountService;
+    AccountServiceImpl accountService;
 
     public void testShow() {
         accountService.show();

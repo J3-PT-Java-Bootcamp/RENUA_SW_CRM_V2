@@ -23,7 +23,7 @@ public class Contact extends User {
     @JsonIgnore
     private Opportunity opportunity;
 
-    public  Contact(Lead lead) {
+    public Contact(Lead lead) {
         super(lead.name, lead.phoneNumber, lead.email, lead.companyName);
     }
 }

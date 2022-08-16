@@ -19,9 +19,11 @@ public class SalesRep {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+
     @OneToMany(mappedBy = "salesRep")
     @JsonIgnore
     List<Lead> leadList;
+
     @OneToMany(mappedBy = "salesRep")
     @JsonIgnore
     List<Opportunity> opportunityList;

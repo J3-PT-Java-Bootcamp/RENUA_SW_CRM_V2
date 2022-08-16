@@ -48,8 +48,28 @@ public class Account {
                 " city='" + city + '\'' + "\n" +
                 " country='" + country + '\'' + "\n" +
                 " companyName='" + companyName + '\'' + "\n" +
-                " contactList=" + contactList + "\n" +
-                " opportunityList=" + opportunityList + "\n" +
+                " contactList=" + contactListToString() + "\n" +
+                " opportunityList=" + opportunityListToString() + "\n" +
                 "}";
+    }
+
+    private String contactListToString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (Contact contact : contactList) {
+            sb.append(contact.getId()).append(", ");
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+
+    private String opportunityListToString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (Opportunity opportunity : opportunityList) {
+            sb.append(opportunity.getId()).append(", ");
+        }
+        sb.append("]");
+        return sb.toString();
     }
 }
