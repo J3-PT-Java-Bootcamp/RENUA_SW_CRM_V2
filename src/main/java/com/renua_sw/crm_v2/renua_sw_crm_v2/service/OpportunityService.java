@@ -60,7 +60,7 @@ public class OpportunityService {
 
         System.out.print("Contact created: " + contact.getId() + "\n");
 
-        final var opportunity = new Opportunity(product, trucksNum, contact, OpportunityStatus.OPEN);
+        final var opportunity = new Opportunity(product, trucksNum, contact, OpportunityStatus.OPEN, lead.getSalesRep());
 
         opportunityRepository.save(opportunity);
         System.out.print("Opportunity created: " + opportunity.getId() + "\n");

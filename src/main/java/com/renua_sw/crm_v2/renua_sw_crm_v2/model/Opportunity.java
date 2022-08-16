@@ -32,10 +32,15 @@ public class Opportunity {
     @Enumerated(EnumType.STRING)
     OpportunityStatus status;
 
-    public Opportunity(ProductType product, int trucksNum, Contact contact, OpportunityStatus status) {
+    @ManyToOne
+    @JoinColumn(name = "sales_rep_id")
+    SalesRep salesRep;
+
+    public Opportunity(ProductType product, int trucksNum, Contact contact, OpportunityStatus status, SalesRep salesRep) {
         setProduct(product);
         setQuantity(trucksNum);
         setDecisionMaker(contact);
         setStatus(status);
+        setSalesRep(salesRep);
     }
 }
