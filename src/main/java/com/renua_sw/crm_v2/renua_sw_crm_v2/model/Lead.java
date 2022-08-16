@@ -1,13 +1,13 @@
 package com.renua_sw.crm_v2.renua_sw_crm_v2.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.sun.istack.NotNull;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Setter
 @Table(name = "leads")
@@ -17,6 +17,7 @@ public class Lead {
     int id;
 
     @Column
+    @NotNull
     String name;
 
     @Column
@@ -27,4 +28,11 @@ public class Lead {
 
     @Column
     String phoneNumber;
+
+    public Lead(String name, String leadPn, String leadEmail, String companyName) {
+        setName(name);
+        setPhoneNumber(leadPn);
+        setEmail(leadEmail);
+        setCompanyName(companyName);
+    }
 }

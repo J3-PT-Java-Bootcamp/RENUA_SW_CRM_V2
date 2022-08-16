@@ -82,11 +82,11 @@ public class RenuaSwCrmV2Application implements CommandLineRunner {
                 }),
 
                 // Lead commands
-                /*new Command<>("convert :id", CommandType.CONVERT_LEAD).addOnRun((cr) -> {
-                    leadService.convertLeadToOpportunity(cr.getUuidParameter("id"));
-                }),
                 new Command<>("new lead", CommandType.NEW_LEAD).addOnRun((cr) -> {
                     leadService.createLead();
+                }),
+                /*new Command<>("convert :id", CommandType.CONVERT_LEAD).addOnRun((cr) -> {
+                    leadService.convertLeadToOpportunity(cr.getUuidParameter("id"));
                 }),
 
                 // Change opportunity status commands

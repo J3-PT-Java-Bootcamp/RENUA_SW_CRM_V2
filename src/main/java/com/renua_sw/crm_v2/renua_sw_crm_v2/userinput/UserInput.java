@@ -1,4 +1,4 @@
-package com.ironhack.renua_sw_crm_v2.userinput;
+package com.renua_sw.crm_v2.renua_sw_crm_v2.userinput;
 
 import java.util.Scanner;
 
