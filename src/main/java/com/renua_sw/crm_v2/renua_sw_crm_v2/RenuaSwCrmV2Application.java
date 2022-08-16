@@ -86,7 +86,11 @@ public class RenuaSwCrmV2Application implements CommandLineRunner {
 
                 // Lead commands
                 new Command<>("new lead", CommandType.NEW_LEAD).addOnRun((cr) -> {
-                    leadService.createLead();
+                    try {
+                        leadService.createLead();
+                    } catch (NotFoundException e) {
+                        ErrorHelper.notFound();
+                    }
                 }),
                 new Command<>("convert :id", CommandType.CONVERT_LEAD).addOnRun((cr) -> {
                     try {

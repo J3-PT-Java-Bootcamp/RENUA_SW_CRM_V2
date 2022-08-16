@@ -3,6 +3,7 @@ package com.renua_sw.crm_v2.renua_sw_crm_v2.service;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.error.ErrorHelper;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.error.NotFoundException;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.model.Lead;
+import com.renua_sw.crm_v2.renua_sw_crm_v2.model.SalesRep;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.repository.LeadRepository;
 import com.renua_sw.crm_v2.renua_sw_crm_v2.userinput.UserInput;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ public class LeadService {
 
     @Autowired
     private LeadRepository leadRepository;
+
+    @Autowired
+    private SalesRepService salesRepService;
 
     public void show() {
         for(final var lead: leadRepository.findAll()) System.out.println(lead.toString());
@@ -39,7 +43,12 @@ public class LeadService {
         return lead;
     }
 
-    public Lead createLead() {
+    public Lead createLead() throws NotFoundException {
+
+        System.out.println("\nSalesRep ID:");
+        final var salesRepId = UserInput.getIntBetween(0, 999999);
+        final var salesRep = salesRepService.findById(salesRepId);
+
         System.out.print("\nLead name: ");
         final String name = UserInput.readText();
 
@@ -52,7 +61,7 @@ public class LeadService {
         System.out.print("\nCompany name");
         final String companyName = UserInput.readText();
 
-        final var lead = new Lead(name, leadPn, leadEmail, companyName);
+        final var lead = new Lead(salesRep, name, leadPn, leadEmail, companyName);
 
         leadRepository.save(lead);
         System.out.print("\nLead created: " + lead.getId());

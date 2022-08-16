@@ -29,7 +29,12 @@ public class Lead {
     @Column
     String phoneNumber;
 
-    public Lead(String name, String leadPn, String leadEmail, String companyName) {
+    @ManyToOne
+    @JoinColumn(name = "sales_rep_id")
+    SalesRep salesRep;
+
+    public Lead(SalesRep salesRep, String name, String leadPn, String leadEmail, String companyName) {
+        setSalesRep(salesRep);
         setName(name);
         setPhoneNumber(leadPn);
         setEmail(leadEmail);
