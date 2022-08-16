@@ -20,11 +20,11 @@ public class SalesRep {
     private long id;
     private String name;
 
-    @OneToMany(mappedBy = "salesRep")
+    @OneToMany(mappedBy = "salesRep", cascade = CascadeType.MERGE)
     @JsonIgnore
     List<Lead> leadList;
 
-    @OneToMany(mappedBy = "salesRep")
+    @OneToMany(mappedBy = "salesRep", cascade = CascadeType.MERGE)
     @JsonIgnore
     List<Opportunity> opportunityList;
 

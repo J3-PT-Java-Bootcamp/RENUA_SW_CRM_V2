@@ -22,7 +22,7 @@ public class Opportunity {
     private Product product;
     private int quantity;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "contact_id")
     private Contact decisionMaker;
 
@@ -30,7 +30,7 @@ public class Opportunity {
     private Status status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
+    @JoinTable(name = "account")
     @JsonIgnore
     private Account account;
 
@@ -52,7 +52,7 @@ public class Opportunity {
                 "  id=" + id +  "\n" +
                 "  product=" + product +  "\n" +
                 "  quantity=" + quantity +  "\n" +
-                "  decisionMaker=" + decisionMaker +  "\n" +
+                "  decisionMaker=" + decisionMaker.getId() +  "\n" +
                 "  status=" + status +  "\n" +
                 "  salesRep=" + salesRep.getId() +  "\n" +
                 "}";
