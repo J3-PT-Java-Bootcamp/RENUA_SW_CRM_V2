@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Data
 @NoArgsConstructor
 public class Opportunity {
 
@@ -31,7 +30,7 @@ public class Opportunity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToOne(/*fetch = FetchType.LAZY*/)
+    @ManyToOne()
     @JoinColumn(name = "account_id")
     private Account account;
 
@@ -47,17 +46,13 @@ public class Opportunity {
         setSalesRep(salesRep);
     }
 
-    public void setDecisionMaker(Contact decisionMaker) {
-        this.decisionMaker = decisionMaker;
-    }
-
     @Override
     public String toString() {
         return "Opportunity{" +  "\n" +
                 "  id=" + id +  "\n" +
                 "  product=" + product +  "\n" +
                 "  quantity=" + quantity +  "\n" +
-                "  decisionMaker=" + decisionMaker.toString() +  "\n" +
+                "  decisionMaker=" + decisionMaker.getId() +  "\n" +
                 "  status=" + status +  "\n" +
                 "  salesRep=" + salesRep.getId() +  "\n" +
                 "}";

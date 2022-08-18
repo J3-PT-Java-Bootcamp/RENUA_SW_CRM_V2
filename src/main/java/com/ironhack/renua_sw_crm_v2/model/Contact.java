@@ -16,9 +16,11 @@ public class Contact extends User {
 
     @ManyToOne
     @JoinColumn(name = "account_id")
+    @JsonIgnore
     private Account account;
 
     @OneToOne(mappedBy = "decisionMaker")
+    @JsonIgnore
     private Opportunity opportunity;
 
     public Contact(Lead lead) {

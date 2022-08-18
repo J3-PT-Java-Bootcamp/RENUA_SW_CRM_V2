@@ -21,9 +21,11 @@ public class SalesRep {
     private String name;
 
     @OneToMany(mappedBy = "salesRep")
+    @JsonIgnore
     private List<Lead> leadList;
 
     @OneToMany(mappedBy = "salesRep")
+    @JsonIgnore
     private List<Opportunity> opportunityList;
 
     public SalesRep(String name) {
