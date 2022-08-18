@@ -3,6 +3,7 @@ package com.ironhack.renua_sw_crm_v2.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ironhack.renua_sw_crm_v2.enums.Product;
 import com.ironhack.renua_sw_crm_v2.enums.Status;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@Data
 @NoArgsConstructor
 public class Opportunity {
 
@@ -22,20 +24,19 @@ public class Opportunity {
     private Product product;
     private int quantity;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "contact_id")
     private Contact decisionMaker;
 
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(/*fetch = FetchType.LAZY*/)
     @JoinColumn(name = "account_id")
-    @JsonIgnore
     private Account account;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sales_rep_id")
+    @ManyToOne()
+    @JoinColumn(name = "sales_rep_id", nullable = false)
     private SalesRep salesRep;
 
     public Opportunity(Product product, int quantity, Contact decisionMaker, Status status, SalesRep salesRep) {
@@ -46,13 +47,17 @@ public class Opportunity {
         setSalesRep(salesRep);
     }
 
+    public void setDecisionMaker(Contact decisionMaker) {
+        this.decisionMaker = decisionMaker;
+    }
+
     @Override
     public String toString() {
         return "Opportunity{" +  "\n" +
                 "  id=" + id +  "\n" +
                 "  product=" + product +  "\n" +
                 "  quantity=" + quantity +  "\n" +
-                "  decisionMaker=" + decisionMaker +  "\n" +
+                "  decisionMaker=" + decisionMaker.toString() +  "\n" +
                 "  status=" + status +  "\n" +
                 "  salesRep=" + salesRep.getId() +  "\n" +
                 "}";

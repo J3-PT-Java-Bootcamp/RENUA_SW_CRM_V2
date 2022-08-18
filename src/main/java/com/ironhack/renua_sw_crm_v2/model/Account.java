@@ -18,16 +18,19 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Enumerated(EnumType.STRING)
     private Industry industry;
     private int employeeCount;
     private String city;
     private String country;
     private String companyName;
+
     @OneToMany(mappedBy = "account")
-    List<Contact> contactList;
+    private List<Contact> contactList;
+
     @OneToMany(mappedBy = "account")
-    List<Opportunity> opportunityList;
+    private List<Opportunity> opportunityList;
 
     public Account(Industry industry, int employeeCount, String city, String country, String companyName, List<Contact> contactList, List<Opportunity> opportunityList) {
         setIndustry(industry);

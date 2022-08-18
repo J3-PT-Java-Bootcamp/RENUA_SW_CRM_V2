@@ -6,6 +6,7 @@ import com.ironhack.renua_sw_crm_v2.enums.Status;
 import com.ironhack.renua_sw_crm_v2.model.Contact;
 import com.ironhack.renua_sw_crm_v2.model.Lead;
 import com.ironhack.renua_sw_crm_v2.model.Opportunity;
+import com.ironhack.renua_sw_crm_v2.model.SalesRep;
 import com.ironhack.renua_sw_crm_v2.userinput.UserInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,13 +34,13 @@ public class OpportunityServiceImpl implements OpportunityService {
         System.out.print("\nNumber of trucks (Between 0 and 9999):\n");
         int trucksNum = UserInput.getIntBetween(0, 9999);
 
-        var contact = new Contact(lead);
-        contact = contactService.put(contact);
+        var decisionMaker = new Contact(lead);
+        decisionMaker = contactService.put(decisionMaker);
 
-        var opportunity = new Opportunity(product, trucksNum, contact, Status.OPEN, lead.getSalesRep());
+        var opportunity = new Opportunity(product, trucksNum, decisionMaker, Status.OPEN, lead.getSalesRep());
         opportunity = put(opportunity);
 
-        System.out.print("Contact created: " + contact.getId() + "\n");
+        System.out.print("Contact created: " + decisionMaker.getId() + "\n");
         System.out.print("Opportunity created: " + opportunity.getId() + "\n");
 
         return opportunity;

@@ -21,12 +21,10 @@ public class SalesRep {
     private String name;
 
     @OneToMany(mappedBy = "salesRep")
-    @JsonIgnore
-    List<Lead> leadList;
+    private List<Lead> leadList;
 
     @OneToMany(mappedBy = "salesRep")
-    @JsonIgnore
-    List<Opportunity> opportunityList;
+    private List<Opportunity> opportunityList;
 
     public SalesRep(String name) {
         setName(name);
