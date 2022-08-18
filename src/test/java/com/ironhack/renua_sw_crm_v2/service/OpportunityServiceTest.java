@@ -5,15 +5,19 @@ import com.ironhack.renua_sw_crm_v2.enums.Status;
 import com.ironhack.renua_sw_crm_v2.model.Contact;
 import com.ironhack.renua_sw_crm_v2.model.Opportunity;
 import com.ironhack.renua_sw_crm_v2.model.SalesRep;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 public class OpportunityServiceTest {
 
+    @Autowired
+    OpportunityServiceImpl opportunityService;
+
     public void testShow() {
-        OpportunityService.show();
+        opportunityService.show();
     }
 
     public void testPut() {
-        OpportunityService.put(new Opportunity(Product.FLATBED, 12, new Contact(), Status.OPEN, new SalesRep("Sergi")));
+        opportunityService.put(new Opportunity(Product.FLATBED, 12, new Contact(), Status.OPEN, new SalesRep("Sergi")));
     }
 }
