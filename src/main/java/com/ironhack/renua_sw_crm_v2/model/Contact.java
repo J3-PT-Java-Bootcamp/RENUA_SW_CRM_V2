@@ -19,7 +19,7 @@ public class Contact extends User {
     @JsonIgnore
     private Account account;
 
-    @OneToOne(mappedBy = "decisionMaker")
+    @OneToOne(mappedBy = "decisionMaker", cascade = CascadeType.MERGE)
     @JsonIgnore
     private Opportunity opportunity;
 

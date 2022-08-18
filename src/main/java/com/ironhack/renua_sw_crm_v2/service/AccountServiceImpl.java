@@ -3,14 +3,14 @@ package com.ironhack.renua_sw_crm_v2.service;
 import com.ironhack.renua_sw_crm_v2.Repository.AccountRepository;
 import com.ironhack.renua_sw_crm_v2.enums.Industry;
 import com.ironhack.renua_sw_crm_v2.model.Account;
-import com.ironhack.renua_sw_crm_v2.model.Contact;
 import com.ironhack.renua_sw_crm_v2.model.Opportunity;
 import com.ironhack.renua_sw_crm_v2.userinput.UserInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -52,17 +52,13 @@ public class AccountServiceImpl implements AccountService {
         var decisionMaker = contactService.getById(opportunity.getDecisionMaker().getId());
         var companyName = decisionMaker.getCompanyName();
 
-        var opportunityList = new ArrayList<Opportunity>();
-        opportunityList.add(opportunity);
-
-        var contactList = new ArrayList<Contact>();
-        contactList.add(opportunity.getDecisionMaker());
+        List opportunityList = List.of(opportunity);
+        List contactList = List.of(decisionMaker);
 
         var account = new Account(industry, employeeCount, city, country, companyName, contactList, opportunityList);
         put(account);
 
         opportunity.setAccount(account);
-
         decisionMaker.setAccount(account);
 
         System.out.print("Account created: " + account.getId());
