@@ -32,6 +32,7 @@ public class Opportunity {
 
     @ManyToOne()
     @JoinColumn(name = "account_id")
+    @JsonIgnore
     private Account account;
 
     @ManyToOne()
