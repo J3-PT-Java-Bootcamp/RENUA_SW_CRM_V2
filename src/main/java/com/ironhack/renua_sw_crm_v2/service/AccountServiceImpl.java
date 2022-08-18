@@ -49,8 +49,8 @@ public class AccountServiceImpl implements AccountService {
         System.out.print("\nWrite country:\n");
         String country = UserInput.readText();
 
-        var contact = contactService.getById(opportunity.getDecisionMaker().getId());
-        var companyName = contact.getCompanyName();
+        var decisionMaker = contactService.getById(opportunity.getDecisionMaker().getId());
+        var companyName = decisionMaker.getCompanyName();
 
         var opportunityList = new ArrayList<Opportunity>();
         opportunityList.add(opportunity);
@@ -60,6 +60,10 @@ public class AccountServiceImpl implements AccountService {
 
         var account = new Account(industry, employeeCount, city, country, companyName, contactList, opportunityList);
         put(account);
+
+        opportunity.setAccount(account);
+
+        decisionMaker.setAccount(account);
 
         System.out.print("Account created: " + account.getId());
 

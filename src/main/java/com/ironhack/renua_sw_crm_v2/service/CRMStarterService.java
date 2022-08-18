@@ -1,14 +1,19 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
 
+import com.ironhack.renua_sw_crm_v2.Repository.LeadRepository;
 import com.ironhack.renua_sw_crm_v2.commander.Command;
 import com.ironhack.renua_sw_crm_v2.commander.Commander;
 import com.ironhack.renua_sw_crm_v2.enums.CommandType;
 import com.ironhack.renua_sw_crm_v2.enums.Status;
+import com.ironhack.renua_sw_crm_v2.model.Lead;
+import com.ironhack.renua_sw_crm_v2.model.SalesRep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CRMStarterService {
@@ -55,7 +60,9 @@ public class CRMStarterService {
                     System.out.println("\t13. close-lost :id - Close an opportunity as lost by id");
                     System.out.println("\t14. close-won :id - Close an opportunity as won by id");
                     System.out.println("\t15. new salesrep - Create a new sales rep");
-                    System.out.println("\t16. exit - Exit the program");
+                    System.out.println("\t16. report lead by salesrep - show leads by salesrep");
+                    System.out.println("\t17. report opportunity by salesrep - show leads by salesrep");
+                    System.out.println("\t18. exit - Exit the program");
                 }),
 
                 // Show commands
@@ -111,6 +118,15 @@ public class CRMStarterService {
                 // SalesRep commands
                 new Command<>("new salesrep", CommandType.NEW_SALESREP).addOnRun((cr) -> {
                     salesRepService.createSalesRep();
+                }),
+                new Command<>("report lead by salesrep", CommandType.REPORT_LEAD_BY_SALESREP).addOnRun((cr) -> {
+                    salesRepService.reportLeadBySalesRep();
+                }),
+                new Command<>("report opportunity by salesrep", CommandType.REPORT_OPPORTUNITY_BY_SALESREP).addOnRun((cr) -> {
+                    salesRepService.reportOpportunityBySalesRep();
+                }),
+                new Command<>("report closed-won by salesrep", CommandType.REPORT_CLOSED_WON_BY_SALESREP).addOnRun((cr) -> {
+                    salesRepService.reportClosedWonBySalesRep();
                 }),
         });
 

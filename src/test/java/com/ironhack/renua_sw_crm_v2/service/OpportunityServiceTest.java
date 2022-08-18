@@ -17,7 +17,7 @@ public class OpportunityServiceTest {
         opportunityService.show();
     }
 
-    public void testPut() {
+    /*public void testPut() {
         opportunityService.put(new Opportunity(Product.FLATBED, 12, new Contact(), Status.OPEN, new SalesRep("Sergi")));
-    }
+    }*/
 }
