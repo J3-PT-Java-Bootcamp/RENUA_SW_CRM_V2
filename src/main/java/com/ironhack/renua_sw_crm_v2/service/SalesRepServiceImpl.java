@@ -6,6 +6,8 @@ import com.ironhack.renua_sw_crm_v2.userinput.UserInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SalesRepServiceImpl implements SalesRepService {
 
@@ -23,6 +25,27 @@ public class SalesRepServiceImpl implements SalesRepService {
         System.out.print("SalesRep created: " + salesRep.getId() + "\n");
 
         return salesRep;
+    }
+
+    @Override
+    public void reportLeadBySalesRep() {
+        salesRepRepository.reportLeadBySalesRep().forEach(leadsBySalesRep -> {
+            System.out.println(leadsBySalesRep[0].toString() + " " + leadsBySalesRep[1].toString());
+        });
+    }
+
+    @Override
+    public void reportOpportunityBySalesRep() {
+        salesRepRepository.reportOpportunityBySalesRep().forEach(oppBySalesRep -> {
+            System.out.println(oppBySalesRep[0].toString() + " " + oppBySalesRep[1].toString());
+        });
+    }
+
+    @Override
+    public void reportClosedWonBySalesRep() {
+        salesRepRepository.reportClosedWonBySalesRep().forEach(oppCloseWonBySalesRep -> {
+            System.out.println(oppCloseWonBySalesRep[0].toString() + " " + oppCloseWonBySalesRep[1].toString());
+        });
     }
 
     @Override

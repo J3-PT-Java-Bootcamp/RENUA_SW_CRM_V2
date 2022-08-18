@@ -22,11 +22,11 @@ public class SalesRep {
 
     @OneToMany(mappedBy = "salesRep", cascade = CascadeType.MERGE)
     @JsonIgnore
-    List<Lead> leadList;
+    private List<Lead> leadList;
 
     @OneToMany(mappedBy = "salesRep", cascade = CascadeType.MERGE)
     @JsonIgnore
-    List<Opportunity> opportunityList;
+    private List<Opportunity> opportunityList;
 
     public SalesRep(String name) {
         setName(name);

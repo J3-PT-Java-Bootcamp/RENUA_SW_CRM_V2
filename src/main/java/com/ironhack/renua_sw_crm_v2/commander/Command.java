@@ -44,6 +44,7 @@ public class Command<T> {
             try {
                 onRun.accept(cr);
             } catch (Exception e) {
+                System.out.println(e.getMessage());
                 // Exceptions  are stopped here
             }
         }

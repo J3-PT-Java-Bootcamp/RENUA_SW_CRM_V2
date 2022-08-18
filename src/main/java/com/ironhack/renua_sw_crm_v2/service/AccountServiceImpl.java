@@ -3,14 +3,13 @@ package com.ironhack.renua_sw_crm_v2.service;
 import com.ironhack.renua_sw_crm_v2.Repository.AccountRepository;
 import com.ironhack.renua_sw_crm_v2.enums.Industry;
 import com.ironhack.renua_sw_crm_v2.model.Account;
-import com.ironhack.renua_sw_crm_v2.model.Contact;
 import com.ironhack.renua_sw_crm_v2.model.Opportunity;
 import com.ironhack.renua_sw_crm_v2.userinput.UserInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -50,23 +49,22 @@ public class AccountServiceImpl implements AccountService {
         System.out.print("\nWrite country:\n");
         String country = UserInput.readText();
 
-        var contact = contactService.getById(opportunity.getDecisionMaker().getId());
-        var companyName = contact.getCompanyName();
+        var decisionMaker = contactService.getById(opportunity.getDecisionMaker().getId());
+        var companyName = decisionMaker.getCompanyName();
 
-        Set opportunityList = new HashSet();
-        opportunityList.add(opportunity);
-
-        Set contactList = new HashSet();
-        contactList.add(opportunity.getDecisionMaker());
+        List opportunityList = List.of(opportunity);
+        List contactList = List.of(decisionMaker);
 
         var account = new Account(industry, employeeCount, city, country, companyName, contactList, opportunityList);
         put(account);
+
+        opportunity.setAccount(account);
+        decisionMaker.setAccount(account);
 
         System.out.print("Account created: " + account.getId());
 
         return account;
     }
-
     @Override
     public void show() {
         accountRepository.findAll().forEach((account) -> {

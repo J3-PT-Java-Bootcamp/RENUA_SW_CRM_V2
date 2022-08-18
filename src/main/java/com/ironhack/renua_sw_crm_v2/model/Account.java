@@ -21,20 +21,21 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Enumerated(EnumType.STRING)
     private Industry industry;
     private int employeeCount;
     private String city;
     private String country;
     private String companyName;
-    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    Set<Contact> contactList;
-    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    Set<Opportunity> opportunityList;
 
-    public Account(Industry industry, int employeeCount, String city, String country, String companyName, Set<Contact> contactList, Set<Opportunity> opportunityList) {
+    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
+    private List<Contact> contactList;
+
+    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
+    private List<Opportunity> opportunityList;
+
+    public Account(Industry industry, int employeeCount, String city, String country, String companyName, List<Contact> contactList, List<Opportunity> opportunityList) {
         setIndustry(industry);
         setEmployeeCount(employeeCount);
         setCity(city);
