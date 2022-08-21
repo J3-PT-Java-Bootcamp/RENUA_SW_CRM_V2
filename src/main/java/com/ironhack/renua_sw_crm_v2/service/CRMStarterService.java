@@ -75,7 +75,7 @@ public class CRMStarterService {
                 new Command<>("show contacts", CommandType.SHOW_CONTACTS).addOnRun((cr) -> {
                     contactService.show();
                 }),
-                new Command<>("show salesrep", CommandType.SHOW_SALESREP).addOnRun((cr) -> {
+                new Command<>("show salesreps", CommandType.SHOW_SALESREP).addOnRun((cr) -> {
                     salesRepService.show();
                 }),
 
