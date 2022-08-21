@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "SalesRep")
+@Table(name = "sales_reps")
 public class SalesRep {
 
     @Id
@@ -30,14 +30,6 @@ public class SalesRep {
 
     public SalesRep(String name) {
         setName(name);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override

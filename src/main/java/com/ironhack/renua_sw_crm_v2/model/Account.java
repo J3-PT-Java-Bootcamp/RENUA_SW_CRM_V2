@@ -13,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "accounts")
 public class Account {
 
     @Id
@@ -21,26 +22,19 @@ public class Account {
 
     @Enumerated(EnumType.STRING)
     private IndustryType industry;
+    @Column(name = "employee_count")
     private int employeeCount;
     private String city;
     private String country;
     private String companyName;
 
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
+    @Column(name = "contact_list")
     private List<Contact> contactList;
 
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
+    @Column(name = "opportunity_list")
     private List<Opportunity> opportunityList;
-
-    public Account(IndustryType industry, int employeeCount, String city, String country, String companyName, List<Contact> contactList, List<Opportunity> opportunityList) {
-        setIndustry(industry);
-        setEmployeeCount(employeeCount);
-        setCity(city);
-        setCountry(country);
-        setCompanyName(companyName);
-        setContactList(contactList);
-        setOpportunityList(opportunityList);
-    }
 
     @Override
     public String toString() {

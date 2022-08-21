@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -19,8 +16,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     protected String name;
+    @Column(name = "phone_number")
     protected String phoneNumber;
     protected String email;
+    @Column(name = "company_name")
     protected String companyName;
 
     public User(String name, String phoneNumber, String email, String companyName) {

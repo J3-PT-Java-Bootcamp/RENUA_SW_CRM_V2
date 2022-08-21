@@ -13,6 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "opportunities")
 public class Opportunity {
 
     @Id
@@ -23,19 +24,19 @@ public class Opportunity {
     private int quantity;
 
     @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "contact_id")
+    @JoinColumn(name = "decision_maker_id")
     private Contact decisionMaker;
 
     @Enumerated(EnumType.STRING)
     private OpportunityStatus status;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "account_id")
     @JsonIgnore
     private Account account;
 
-    @ManyToOne()
-    @JoinColumn(name = "sales_rep_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "sales_rep_id")
     private SalesRep salesRep;
 
     public Opportunity(ProductType product, int quantity, Contact decisionMaker, OpportunityStatus status, SalesRep salesRep) {
