@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface OpportunityRepository extends JpaRepository<Opportunity, Long> {
 
-    @Query("SELECT COUNT(id) as 'count', sales_rep FROM opportunities GROUP BY sales_rep")
-    List<Object[]> countAllBySalesRep();
+//    @Query("SELECT COUNT(id) as 'count', sales_rep FROM opportunities GROUP BY sales_rep")
+//    List<Object[]> countAllBySalesRep();
 }

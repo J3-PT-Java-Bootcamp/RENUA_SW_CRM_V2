@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -30,11 +30,11 @@ public class Account {
 
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     @Column(name = "contact_list")
-    private List<Contact> contactList;
+    private Set<Contact> contactList;
 
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     @Column(name = "opportunity_list")
-    private List<Opportunity> opportunityList;
+    private Set<Opportunity> opportunityList;
 
     @Override
     public String toString() {

@@ -30,12 +30,12 @@ public class Opportunity {
     @Enumerated(EnumType.STRING)
     private OpportunityStatus status;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "account_id")
     @JsonIgnore
     private Account account;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "sales_rep_id")
     private SalesRep salesRep;
 

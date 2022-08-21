@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -22,11 +22,11 @@ public class SalesRep {
 
     @OneToMany(mappedBy = "salesRep", cascade = CascadeType.MERGE)
     @JsonIgnore
-    private List<Lead> leadList;
+    private Set<Lead> leadList;
 
     @OneToMany(mappedBy = "salesRep", cascade = CascadeType.MERGE)
     @JsonIgnore
-    private List<Opportunity> opportunityList;
+    private Set<Opportunity> opportunityList;
 
     public SalesRep(String name) {
         setName(name);
