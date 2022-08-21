@@ -18,8 +18,9 @@ public class AccountServiceImpl implements AccountService {
     AccountRepository accountRepository;
 
     @Override
-    public Account createAccount() {
+    public Account createAccount(String companyName) {
         final var account = new Account();
+        account.setCompanyName(companyName);
 
         System.out.print("\nWrite industry number:\n");
         System.out.println("1: PRODUCE");

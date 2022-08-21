@@ -15,9 +15,9 @@ import javax.persistence.*;
 public class Contact extends User {
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "contact_account_id")
     @JsonIgnore
-    private Account account;
+    private Account contactAccount;
 
     @OneToOne(mappedBy = "decisionMaker", cascade = CascadeType.MERGE)
     @JsonIgnore

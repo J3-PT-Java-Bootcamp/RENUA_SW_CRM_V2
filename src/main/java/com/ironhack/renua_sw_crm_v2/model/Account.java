@@ -1,18 +1,19 @@
 package com.ironhack.renua_sw_crm_v2.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ironhack.renua_sw_crm_v2.enums.IndustryType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @Table(name = "accounts")
 public class Account {
 
@@ -27,14 +28,24 @@ public class Account {
     private String city;
     private String country;
     private String companyName;
-
-    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
-    @Column(name = "contact_list")
+    @OneToMany(
+            mappedBy = "contactAccount",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.MERGE
+    )
     private Set<Contact> contactList;
 
-    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
-    @Column(name = "opportunity_list")
+    @OneToMany(
+            mappedBy = "opportunityAccount",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.MERGE
+    )
     private Set<Opportunity> opportunityList;
+
+    public Account() {
+        setContactList(new HashSet<>());
+        setOpportunityList(new HashSet<>());
+    }
 
     @Override
     public String toString() {
@@ -53,8 +64,11 @@ public class Account {
     private String contactListToString() {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
+        var counter = 1;
         for (Contact contact : contactList) {
-            sb.append(contact.getId()).append(", ");
+            sb.append(contact.getId());
+            if(counter != contactList.size()) sb.append(", ");
+            counter++;
         }
         sb.append("]");
         return sb.toString();
@@ -63,8 +77,11 @@ public class Account {
     private String opportunityListToString() {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
+        var counter = 1;
         for (Opportunity opportunity : opportunityList) {
-            sb.append(opportunity.getId()).append(", ");
+            sb.append(opportunity.getId());
+            if(counter != opportunityList.size()) sb.append(", ");
+            counter++;
         }
         sb.append("]");
         return sb.toString();

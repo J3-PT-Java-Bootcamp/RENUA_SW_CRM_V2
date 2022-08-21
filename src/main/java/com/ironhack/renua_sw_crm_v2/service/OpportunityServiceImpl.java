@@ -1,5 +1,6 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
+import com.ironhack.renua_sw_crm_v2.Repository.ContactRepository;
 import com.ironhack.renua_sw_crm_v2.Repository.OpportunityRepository;
 import com.ironhack.renua_sw_crm_v2.enums.ProductType;
 import com.ironhack.renua_sw_crm_v2.enums.OpportunityStatus;
@@ -20,6 +21,9 @@ public class OpportunityServiceImpl implements OpportunityService {
     OpportunityRepository opportunityRepository;
 
     @Autowired
+    ContactRepository contactRepository;
+
+    @Autowired
     AccountService accountService;
 
     @Autowired
@@ -38,7 +42,7 @@ public class OpportunityServiceImpl implements OpportunityService {
 
         ProductType product = new ProductType[] {ProductType.HYBRID, ProductType.FLATBED, ProductType.BOX}[UserInput.getIntBetween(1,3) - 1];
 
-        System.out.print("\nNumber of trucks (Between 0 and 9999):\n");
+        System.out.print("\nNumber of trucks:\n");
         int trucksNum = UserInput.getIntNumber();
 
         final var contact = contactService.createFromLead(lead);
@@ -50,15 +54,19 @@ public class OpportunityServiceImpl implements OpportunityService {
         System.out.print("Opportunity created: " + opportunity.getId() + "\n");
 
         System.out.println("Would you like to create a new Account? (Y/N)");
+        Account account;
         if(UserInput.getYesNo()) {
-            final var account = accountService.createAccount();
-            accountService.addOpportunityAndContact(account, opportunity, contact);
+            account = accountService.createAccount(contact.getCompanyName());
             System.out.println("Accout created: " + account.getId());
         } else {
             final Long accountId = Long.parseLong(UserInput.readText());
-            final Account account = accountService.getById(accountId);
-            accountService.addOpportunityAndContact(account, opportunity, contact);
+            account = accountService.getById(accountId);
         }
+
+        opportunity.setOpportunityAccount(account);
+        opportunityRepository.save(opportunity);
+        contact.setContactAccount(account);
+        contactRepository.save(contact);
 
         return opportunity;
     }
