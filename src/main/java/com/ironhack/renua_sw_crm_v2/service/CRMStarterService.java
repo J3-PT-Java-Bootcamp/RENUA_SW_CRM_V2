@@ -31,6 +31,15 @@ public class CRMStarterService {
     LeadService leadService;
 
     @Autowired
+    CityService cityService;
+
+    @Autowired
+    CountryService countryService;
+
+    @Autowired
+    IndustryService industryService;
+
+    @Autowired
     ProductService productService;
 
     @EventListener(ApplicationReadyEvent.class)
