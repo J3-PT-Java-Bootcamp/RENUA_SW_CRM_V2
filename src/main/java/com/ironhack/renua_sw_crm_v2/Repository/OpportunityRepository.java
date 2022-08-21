@@ -10,6 +10,13 @@ import java.util.List;
 @Repository
 public interface OpportunityRepository extends JpaRepository<Opportunity, Long> {
 
-//    @Query("SELECT COUNT(id) as 'count', sales_rep FROM opportunities GROUP BY sales_rep")
-//    List<Object[]> countAllBySalesRep();
+    // By the product
+    @Query(value = "SELECT product, count(*) num_opportunities FROM opportunities GROUP BY product", nativeQuery = true)
+    List<Object[]> reportOpportunityByTheProduct();
+    @Query(value = "SELECT product, count(*) num_opportunities FROM opportunities WHERE status = 'CLOSED_WON' GROUP BY product", nativeQuery = true)
+    List<Object[]> reportClosedWonByTheProduct();
+    @Query(value = "SELECT product, count(*) num_opportunities FROM opportunities WHERE status = 'CLOSED_LOST' GROUP BY product", nativeQuery = true)
+    List<Object[]> reportClosedLostByTheProduct();
+    @Query(value = "SELECT product, count(*) num_opportunities FROM opportunities WHERE status = 'OPEN' GROUP BY product", nativeQuery = true)
+    List<Object[]> reportOpenByTheProduct();
 }

@@ -30,6 +30,9 @@ public class CRMStarterService {
     @Autowired
     LeadService leadService;
 
+    @Autowired
+    ProductService productService;
+
     @EventListener(ApplicationReadyEvent.class)
     public void CRMStarterService() {
 
@@ -144,6 +147,21 @@ public class CRMStarterService {
                 new Command<>("report open by salesrep", CommandType.REPORT_OPEN_BY_SALESREP).addOnRun((cr) -> {
                     salesRepService.reportOpenBySalesRep();
                 }),
+
+                // Product commands
+                new Command<>("Report Opportunity by the product", CommandType.REPORT_OPPORTUNITY_BY_THE_PRODUCT).addOnRun((cr) -> {
+                    productService.reportOpportunityByTheProduct();
+                }),
+                new Command<>("Report CLOSED-WON by the product", CommandType.REPORT_CLOSED_WON_BY_THE_PRODUCT).addOnRun((cr) -> {
+                    productService.reportClosedWonByTheProduct();
+                }),
+                new Command<>("Report CLOSED-LOST by the product", CommandType.REPORT_CLOSED_LOST_BY_THE_PRODUCT).addOnRun((cr) -> {
+                    productService.reportClosedLostByTheProduct();
+                }),
+                new Command<>("Report OPEN by the product", CommandType.REPORT_OPEN_BY_THE_PRODUCT).addOnRun((cr) -> {
+                    productService.reportOpenByTheProduct();
+                }),
+
         });
 
         // Run event when a command is executed
