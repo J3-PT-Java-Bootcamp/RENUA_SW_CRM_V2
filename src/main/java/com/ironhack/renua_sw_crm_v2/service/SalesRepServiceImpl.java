@@ -1,12 +1,12 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
 import com.ironhack.renua_sw_crm_v2.Repository.SalesRepRepository;
+import com.ironhack.renua_sw_crm_v2.error.ErrorHelper;
+import com.ironhack.renua_sw_crm_v2.error.NotFoundException;
 import com.ironhack.renua_sw_crm_v2.model.SalesRep;
 import com.ironhack.renua_sw_crm_v2.userinput.UserInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class SalesRepServiceImpl implements SalesRepService {
@@ -20,7 +20,7 @@ public class SalesRepServiceImpl implements SalesRepService {
         var name = UserInput.readText();
 
         var salesRep = new SalesRep(name);
-        put(salesRep);
+        salesRepRepository.save(salesRep);
 
         System.out.print("SalesRep created: " + salesRep.getId() + "\n");
 
@@ -57,17 +57,14 @@ public class SalesRepServiceImpl implements SalesRepService {
 
     @Override
     public void show(Long id) {
-        final var contact = getById(id);
-        System.out.println(contact.toString());
+        final var row = salesRepRepository.findById(id);
+        if(row.isEmpty()) ErrorHelper.notFound();
+        else System.out.println(row.get());
     }
 
     @Override
-    public SalesRep getById(Long id) {
-        return salesRepRepository.findById(id).get();
-    }
-
-    @Override
-    public void put(SalesRep contact) {
-        salesRepRepository.save(contact);
+    public SalesRep getById(Long id) throws NotFoundException {
+        final var salesRep = salesRepRepository.findById(id).orElseThrow(() -> new NotFoundException());
+        return salesRep;
     }
 }

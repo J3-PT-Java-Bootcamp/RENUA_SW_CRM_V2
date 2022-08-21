@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "contact_user")
+@Table(name = "contacts")
 public class Contact extends User {
 
     @ManyToOne

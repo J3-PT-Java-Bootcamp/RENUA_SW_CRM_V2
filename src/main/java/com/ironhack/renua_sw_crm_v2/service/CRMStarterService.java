@@ -1,19 +1,16 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
 
-import com.ironhack.renua_sw_crm_v2.Repository.LeadRepository;
 import com.ironhack.renua_sw_crm_v2.commander.Command;
 import com.ironhack.renua_sw_crm_v2.commander.Commander;
 import com.ironhack.renua_sw_crm_v2.enums.CommandType;
-import com.ironhack.renua_sw_crm_v2.enums.Status;
-import com.ironhack.renua_sw_crm_v2.model.Lead;
-import com.ironhack.renua_sw_crm_v2.model.SalesRep;
+import com.ironhack.renua_sw_crm_v2.enums.OpportunityStatus;
+import com.ironhack.renua_sw_crm_v2.error.ErrorHelper;
+import com.ironhack.renua_sw_crm_v2.error.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class CRMStarterService {
@@ -101,18 +98,34 @@ public class CRMStarterService {
 
                 // Lead commands
                 new Command<>("convert :id", CommandType.CONVERT_LEAD).addOnRun((cr) -> {
-                    leadService.convertLeadToOpportunity(cr.getLongParameter("id"));
+                    try {
+                        opportunityService.createFromLead(cr.getLongParameter("id"));
+                    } catch (NotFoundException e) {
+                        ErrorHelper.notFound();
+                    }
                 }),
                 new Command<>("new lead", CommandType.NEW_LEAD).addOnRun((cr) -> {
-                    leadService.createLead();
+                    try {
+                        leadService.createLead();
+                    } catch (NotFoundException e) {
+                        ErrorHelper.notFound();
+                    }
                 }),
 
                 // Change opportunity status commands
                 new Command<>("close-lost :id", CommandType.CLOSE_LOST).addOnRun((cr) -> {
-                    opportunityService.updateStatus(cr.getLongParameter("id"), Status.CLOSED_LOST);
+                    try {
+                        opportunityService.updateStatus(cr.getLongParameter("id"), OpportunityStatus.CLOSED_LOST);
+                    } catch (NotFoundException e) {
+                        ErrorHelper.notFound();
+                    }
                 }),
                 new Command<>("close-won :id", CommandType.CLOSE_WON).addOnRun((cr) -> {
-                    opportunityService.updateStatus(cr.getLongParameter("id"), Status.CLOSED_WON);
+                    try {
+                        opportunityService.updateStatus(cr.getLongParameter("id"), OpportunityStatus.CLOSED_WON);
+                    } catch (NotFoundException e) {
+                        ErrorHelper.notFound();
+                    }
                 }),
 
                 // SalesRep commands

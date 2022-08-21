@@ -1,21 +1,19 @@
 package com.ironhack.renua_sw_crm_v2.model;
 
 
-import com.ironhack.renua_sw_crm_v2.enums.Industry;
+import com.ironhack.renua_sw_crm_v2.enums.IndustryType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "accounts")
 public class Account {
 
     @Id
@@ -23,27 +21,20 @@ public class Account {
     private long id;
 
     @Enumerated(EnumType.STRING)
-    private Industry industry;
+    private IndustryType industry;
+    @Column(name = "employee_count")
     private int employeeCount;
     private String city;
     private String country;
     private String companyName;
 
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
-    private List<Contact> contactList;
+    @Column(name = "contact_list")
+    private Set<Contact> contactList;
 
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
-    private List<Opportunity> opportunityList;
-
-    public Account(Industry industry, int employeeCount, String city, String country, String companyName, List<Contact> contactList, List<Opportunity> opportunityList) {
-        setIndustry(industry);
-        setEmployeeCount(employeeCount);
-        setCity(city);
-        setCountry(country);
-        setCompanyName(companyName);
-        setContactList(contactList);
-        setOpportunityList(opportunityList);
-    }
+    @Column(name = "opportunity_list")
+    private Set<Opportunity> opportunityList;
 
     @Override
     public String toString() {

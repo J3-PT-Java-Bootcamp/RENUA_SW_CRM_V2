@@ -1,9 +1,8 @@
 package com.ironhack.renua_sw_crm_v2.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ironhack.renua_sw_crm_v2.enums.Product;
-import com.ironhack.renua_sw_crm_v2.enums.Status;
-import lombok.Data;
+import com.ironhack.renua_sw_crm_v2.enums.ProductType;
+import com.ironhack.renua_sw_crm_v2.enums.OpportunityStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,21 +13,22 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "opportunities")
 public class Opportunity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Enumerated(EnumType.STRING)
-    private Product product;
+    private ProductType product;
     private int quantity;
 
     @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "contact_id")
+    @JoinColumn(name = "decision_maker_id")
     private Contact decisionMaker;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private OpportunityStatus status;
 
     @ManyToOne()
     @JoinColumn(name = "account_id")
@@ -36,10 +36,10 @@ public class Opportunity {
     private Account account;
 
     @ManyToOne()
-    @JoinColumn(name = "sales_rep_id", nullable = false)
+    @JoinColumn(name = "sales_rep_id")
     private SalesRep salesRep;
 
-    public Opportunity(Product product, int quantity, Contact decisionMaker, Status status, SalesRep salesRep) {
+    public Opportunity(ProductType product, int quantity, Contact decisionMaker, OpportunityStatus status, SalesRep salesRep) {
         setProduct(product);
         setQuantity(quantity);
         setDecisionMaker(decisionMaker);
