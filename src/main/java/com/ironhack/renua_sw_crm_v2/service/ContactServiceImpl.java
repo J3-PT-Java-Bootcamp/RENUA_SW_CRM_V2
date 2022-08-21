@@ -40,4 +40,9 @@ public class ContactServiceImpl implements ContactService {
 
         return contact;
     }
+
+    @Override
+    public Contact save(Contact contact){
+        return contactRepository.save(contact);
+    }
 }

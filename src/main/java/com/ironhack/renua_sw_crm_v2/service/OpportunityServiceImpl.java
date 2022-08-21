@@ -21,9 +21,6 @@ public class OpportunityServiceImpl implements OpportunityService {
     OpportunityRepository opportunityRepository;
 
     @Autowired
-    ContactRepository contactRepository;
-
-    @Autowired
     AccountService accountService;
 
     @Autowired
@@ -59,6 +56,7 @@ public class OpportunityServiceImpl implements OpportunityService {
             account = accountService.createAccount(contact.getCompanyName());
             System.out.println("Accout created: " + account.getId());
         } else {
+            System.out.println("\nAccount ID:\n");
             final Long accountId = Long.parseLong(UserInput.readText());
             account = accountService.getById(accountId);
         }
@@ -66,7 +64,7 @@ public class OpportunityServiceImpl implements OpportunityService {
         opportunity.setOpportunityAccount(account);
         opportunityRepository.save(opportunity);
         contact.setContactAccount(account);
-        contactRepository.save(contact);
+        contactService.save(contact);
 
         return opportunity;
     }

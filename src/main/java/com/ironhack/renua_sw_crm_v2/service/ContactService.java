@@ -10,4 +10,5 @@ public interface ContactService {
     void show(Long id);
     Contact getById(Long id) throws NotFoundException;
     Contact createFromLead(Lead lead);
+    Contact save(Contact contact);
 }
