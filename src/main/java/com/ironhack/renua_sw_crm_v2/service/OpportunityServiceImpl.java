@@ -1,15 +1,14 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
 import com.ironhack.renua_sw_crm_v2.Repository.OpportunityRepository;
-import com.ironhack.renua_sw_crm_v2.enums.Industry;
-import com.ironhack.renua_sw_crm_v2.enums.Product;
-import com.ironhack.renua_sw_crm_v2.enums.Status;
+import com.ironhack.renua_sw_crm_v2.enums.ProductType;
+import com.ironhack.renua_sw_crm_v2.enums.OpportunityStatus;
+import com.ironhack.renua_sw_crm_v2.error.ErrorHelper;
+import com.ironhack.renua_sw_crm_v2.error.NotFoundException;
 import com.ironhack.renua_sw_crm_v2.model.*;
 import com.ironhack.renua_sw_crm_v2.userinput.UserInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 
 @Service
 public class OpportunityServiceImpl implements OpportunityService {
@@ -20,39 +19,57 @@ public class OpportunityServiceImpl implements OpportunityService {
     @Autowired
     OpportunityRepository opportunityRepository;
 
+    @Autowired
+    AccountService accountService;
+
+    @Autowired
+    LeadService leadService;
+
     @Override
-    public Opportunity createOpportunity(Lead lead) {
+    public Opportunity createFromLead(Long leadId) throws NotFoundException {
+        final var lead = leadService.getById(leadId);
+        leadService.delete(lead);
 
         System.out.print("\nWrite product number:\n");
 
         System.out.println("1: HYBRID");
-        System.out.println("2: FLATED");
+        System.out.println("2: FLATBED");
         System.out.println("3: BOX");
 
-        Product product = new Product[] {Product.HYBRID, Product.FLATBED, Product.BOX}[UserInput.getIntBetween(1,3) - 1];
+        ProductType product = new ProductType[] {ProductType.HYBRID, ProductType.FLATBED, ProductType.BOX}[UserInput.getIntBetween(1,3) - 1];
 
         System.out.print("\nNumber of trucks (Between 0 and 9999):\n");
-        int trucksNum = UserInput.getIntBetween(0, 9999);
+        int trucksNum = UserInput.getIntNumber();
 
-        var decisionMaker = new Contact(lead);
-        decisionMaker = contactService.put(decisionMaker);
+        final var contact = contactService.createFromLead(lead);
+        System.out.print("Contact created: " + contact.getId() + "\n");
 
-        var opportunity = new Opportunity(product, trucksNum, decisionMaker, Status.OPEN, lead.getSalesRep());
-        opportunity = put(opportunity);
+        final var opportunity = new Opportunity(product, trucksNum, contact, OpportunityStatus.OPEN, lead.getSalesRep());
 
-        System.out.print("Contact created: " + decisionMaker.getId() + "\n");
+        opportunityRepository.save(opportunity);
         System.out.print("Opportunity created: " + opportunity.getId() + "\n");
+
+        System.out.println("Would you like to create a new Account? (Y/N)");
+        if(UserInput.getYesNo()) {
+            final var account = accountService.createAccount();
+            accountService.addOpportunity(account, opportunity);
+            System.out.println("Accout created: " + account.getId());
+        } else {
+            final Long accountId = Long.parseLong(UserInput.readText());
+            final Account account = accountService.getById(accountId);
+            accountService.addOpportunity(account, opportunity);
+        }
 
         return opportunity;
     }
 
     @Override
-    public void  updateStatus(Long id, Status status) {
+    public void  updateStatus(Long id, OpportunityStatus status) throws NotFoundException {
         var opportunity = getById(id);
 
-        if(opportunity.getStatus() == Status.OPEN) {
+        if(opportunity.getStatus() == OpportunityStatus.OPEN) {
             opportunity.setStatus(status);
-            put(opportunity);
+            opportunityRepository.save(opportunity);
             System.out.println("Status updated to " + status);
         } else {
             System.out.println("\nOpportunity is already closed\n");
@@ -68,17 +85,14 @@ public class OpportunityServiceImpl implements OpportunityService {
 
     @Override
     public void show(Long id) {
-        final var opportunity = getById(id);
-        System.out.println(opportunity.toString());
+        final var row = opportunityRepository.findById(id);
+        if(row.isEmpty()) ErrorHelper.notFound();
+        else System.out.println(row.get().toString());
     }
 
     @Override
-    public Opportunity getById(Long id) {
-        return opportunityRepository.findById(id).get();
-    }
-
-    @Override
-    public Opportunity put(Opportunity opportunity) {
-        return opportunityRepository.save(opportunity);
+    public Opportunity getById(Long id) throws NotFoundException {
+        final var opportunity = opportunityRepository.findById(id).orElseThrow(() -> new NotFoundException());
+        return opportunity;
     }
 }
