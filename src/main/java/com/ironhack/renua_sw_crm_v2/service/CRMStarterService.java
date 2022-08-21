@@ -62,7 +62,14 @@ public class CRMStarterService {
                     System.out.println("\t15. new salesrep - Create a new sales rep");
                     System.out.println("\t16. report lead by salesrep - show leads by salesrep");
                     System.out.println("\t17. report opportunity by salesrep - show leads by salesrep");
-                    System.out.println("\t18. exit - Exit the program");
+                    System.out.println("\t18. report closed won by salesrep - show closed won by salesrep");
+                    System.out.println("\t19. report open by salesrep - show open by salesrep");
+                    System.out.println("\t21. report opportunity by :attribute - show opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
+                    System.out.println("\t22. report closed won by :attribute - show closed won by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
+                    System.out.println("\t23. report open by :attribute - show open by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
+                    System.out.println("\t24. report closed lost by :attribute - show closed lost by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
+                    System.out.println("\t25. exit - Exit the program");
+
                 }),
 
                 // Show commands
@@ -160,6 +167,48 @@ public class CRMStarterService {
                 }),
                 new Command<>("Report OPEN by the product", CommandType.REPORT_OPEN_BY_THE_PRODUCT).addOnRun((cr) -> {
                     productService.reportOpenByTheProduct();
+                }),
+
+                // Country commands
+                new Command<>("Report Opportunity by country", CommandType.REPORT_OPPORTUNITY_BY_COUNTRY).addOnRun((cr) -> {
+                    countryService.reportOpportunityByCountry();
+                }),
+                new Command<>("Report CLOSED-WON by country", CommandType.REPORT_CLOSED_WON_BY_COUNTRY).addOnRun((cr) -> {
+                    countryService.reportClosedWonByCountry();
+                }),
+                new Command<>("Report CLOSED-LOST by country", CommandType.REPORT_CLOSED_LOST_BY_COUNTRY).addOnRun((cr) -> {
+                    countryService.reportClosedLostByCountry();
+                }),
+                new Command<>("Report OPEN by country", CommandType.REPORT_OPEN_BY_COUNTRY).addOnRun((cr) -> {
+                    countryService.reportOpenByCountry();
+                }),
+
+                // City commands
+                new Command<>("Report Opportunity by city", CommandType.REPORT_OPPORTUNITY_BY_CITY).addOnRun((cr) -> {
+                    cityService.reportOpportunityByCity();
+                }),
+                new Command<>("Report CLOSED-WON by city", CommandType.REPORT_CLOSED_WON_BY_CITY).addOnRun((cr) -> {
+                    cityService.reportClosedWonByCity();
+                }),
+                new Command<>("Report CLOSED-LOST by city", CommandType.REPORT_CLOSED_LOST_BY_CITY).addOnRun((cr) -> {
+                    cityService.reportClosedLostByCity();
+                }),
+                new Command<>("Report OPEN by city", CommandType.REPORT_OPEN_BY_CITY).addOnRun((cr) -> {
+                    cityService.reportOpenByCity();
+                }),
+
+                // Industry commands
+                new Command<>("Report Opportunity by industry", CommandType.REPORT_OPPORTUNITY_BY_INDUSTRY).addOnRun((cr) -> {
+                    industryService.reportOpportunityByIndustry();
+                }),
+                new Command<>("Report CLOSED-WON by industry", CommandType.REPORT_CLOSED_WON_BY_INDUSTRY).addOnRun((cr) -> {
+                    industryService.reportClosedWonByIndustry();
+                }),
+                new Command<>("Report CLOSED-LOST by industry", CommandType.REPORT_CLOSED_LOST_BY_INDUSTRY).addOnRun((cr) -> {
+                    industryService.reportClosedLostByIndustry();
+                }),
+                new Command<>("Report OPEN by industry", CommandType.REPORT_OPEN_BY_INDUSTRY).addOnRun((cr) -> {
+                    industryService.reportOpenByIndustry();
                 }),
 
         });
