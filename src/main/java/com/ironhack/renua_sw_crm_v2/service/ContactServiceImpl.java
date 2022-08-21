@@ -35,11 +35,9 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public Contact createFromLead(Lead lead) {
-        final var contact = new Contact();
-        contact.setEmail(lead.getEmail());
-        contact.setPhoneNumber(lead.getPhoneNumber());
-
+        final var contact = new Contact(lead);
         contactRepository.save(contact);
+
         return contact;
     }
 }

@@ -87,7 +87,7 @@ public class OpportunityServiceImpl implements OpportunityService {
     public void show(Long id) {
         final var row = opportunityRepository.findById(id);
         if(row.isEmpty()) ErrorHelper.notFound();
-        else System.out.println(row.get().toString());
+        else System.out.println(row.get());
     }
 
     @Override
