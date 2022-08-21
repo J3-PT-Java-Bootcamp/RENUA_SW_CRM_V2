@@ -31,9 +31,9 @@ public class Opportunity {
     private OpportunityStatus status;
 
     @ManyToOne()
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "opportunity_account_id")
     @JsonIgnore
-    private Account account;
+    private Account opportunityAccount;
 
     @ManyToOne()
     @JoinColumn(name = "sales_rep_id")
