@@ -141,6 +141,9 @@ public class CRMStarterService {
                 new Command<>("report closed-won by salesrep", CommandType.REPORT_CLOSED_WON_BY_SALESREP).addOnRun((cr) -> {
                     salesRepService.reportClosedWonBySalesRep();
                 }),
+                new Command<>("report open by salesrep", CommandType.REPORT_OPEN_BY_SALESREP).addOnRun((cr) -> {
+                    salesRepService.reportOpenBySalesRep();
+                }),
         });
 
         // Run event when a command is executed

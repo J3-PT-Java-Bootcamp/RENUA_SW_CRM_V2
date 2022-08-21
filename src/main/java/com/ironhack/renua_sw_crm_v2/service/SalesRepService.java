@@ -20,4 +20,5 @@ public interface SalesRepService {
     void reportOpportunityBySalesRep();
 
     void reportClosedWonBySalesRep();
+    void reportOpenBySalesRep();
 }

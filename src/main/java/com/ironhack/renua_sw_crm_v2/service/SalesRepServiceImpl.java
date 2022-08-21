@@ -49,6 +49,13 @@ public class SalesRepServiceImpl implements SalesRepService {
     }
 
     @Override
+    public void reportOpenBySalesRep() {
+        salesRepRepository.reportOpenBySalesRep().forEach(oppOpenBySalesRep -> {
+            System.out.println(oppOpenBySalesRep[0].toString() + " " + oppOpenBySalesRep[1].toString());
+        });
+    }
+
+    @Override
     public void show() {
         salesRepRepository.findAll().forEach((salesRep) -> {
             System.out.println(salesRep.toString());
