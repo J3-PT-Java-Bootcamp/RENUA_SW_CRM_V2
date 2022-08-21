@@ -8,7 +8,7 @@ import com.ironhack.renua_sw_crm_v2.model.Opportunity;
 public interface OpportunityService {
 
     void show();
-    void show(Long id) throws NotFoundException;
+    void show(Long id);
     Opportunity getById(Long id) throws NotFoundException;
     void  updateStatus(Long id, OpportunityStatus status) throws NotFoundException;
     Opportunity createFromLead(Long leadId) throws NotFoundException;
