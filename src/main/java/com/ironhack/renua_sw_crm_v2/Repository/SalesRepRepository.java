@@ -10,13 +10,13 @@ import java.util.List;
 @Repository
 public interface SalesRepRepository extends JpaRepository<SalesRep, Long> {
 
-    @Query(value = "SELECT s.name, count(*) num_leads FROM lead_user l JOIN sales_rep s ON l.sales_rep_id = s.id GROUP BY s.name", nativeQuery = true)
+    @Query(value = "SELECT s.name, count(*) num_leads FROM leads l JOIN sales_reps s ON l.sales_rep_id = s.id GROUP BY s.name", nativeQuery = true)
     List<Object[]> reportLeadBySalesRep();
 
-    @Query(value = "SELECT s.name, count(*) num_opportunities FROM opportunity o JOIN sales_rep s ON o.sales_rep_id = s.id GROUP BY s.name", nativeQuery = true)
+    @Query(value = "SELECT s.name, count(*) num_opportunities FROM opportunities o JOIN sales_reps s ON o.sales_rep_id = s.id GROUP BY s.name", nativeQuery = true)
     List<Object[]> reportOpportunityBySalesRep();
 
-    @Query(value = "select s.name, count(*) num_opportunities from opportunity o join sales_rep s on o.sales_rep_id = s.id group by s.name having o.status=\"CLOSE_WON\"", nativeQuery = true)
+    @Query(value = "select s.name, count(*) num_opportunities from opportunities o join sales_reps s on o.sales_rep_id = s.id group by s.name having o.status=\"CLOSE_WON\"", nativeQuery = true)
     List<Object[]> reportClosedWonBySalesRep();
 
 }

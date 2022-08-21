@@ -52,12 +52,12 @@ public class OpportunityServiceImpl implements OpportunityService {
         System.out.println("Would you like to create a new Account? (Y/N)");
         if(UserInput.getYesNo()) {
             final var account = accountService.createAccount();
-            accountService.addOpportunity(account, opportunity);
+            accountService.addOpportunityAndContact(account, opportunity, contact);
             System.out.println("Accout created: " + account.getId());
         } else {
             final Long accountId = Long.parseLong(UserInput.readText());
             final Account account = accountService.getById(accountId);
-            accountService.addOpportunity(account, opportunity);
+            accountService.addOpportunityAndContact(account, opportunity, contact);
         }
 
         return opportunity;

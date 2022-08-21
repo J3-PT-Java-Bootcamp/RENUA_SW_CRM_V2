@@ -5,6 +5,7 @@ import com.ironhack.renua_sw_crm_v2.enums.IndustryType;
 import com.ironhack.renua_sw_crm_v2.error.ErrorHelper;
 import com.ironhack.renua_sw_crm_v2.error.NotFoundException;
 import com.ironhack.renua_sw_crm_v2.model.Account;
+import com.ironhack.renua_sw_crm_v2.model.Contact;
 import com.ironhack.renua_sw_crm_v2.model.Opportunity;
 import com.ironhack.renua_sw_crm_v2.userinput.UserInput;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void addOpportunity(Account account, Opportunity opportunity) {
+    public void addOpportunityAndContact(Account account, Opportunity opportunity, Contact contact) {
+        account.getContactList().add(contact);
         account.getOpportunityList().add(opportunity);
         accountRepository.save(account);
     }
