@@ -54,31 +54,30 @@ public class CRMStarterService {
                 new Command<>("exit", CommandType.EXIT),
                 new Command<>("help", CommandType.HELP).addOnRun((cr) -> {
                     System.out.println("\nAvailable commands:");
-                    System.out.println("\t1. new lead - Create a new lead");
-                    System.out.println("\t2. show leads - Show all leads");
-                    System.out.println("\t3. show opportunities - Show all opportunities");
-                    System.out.println("\t4. show accounts - Show all accounts");
-                    System.out.println("\t5. show contacts - Show all contacts");
-                    System.out.println("\t6. show salesrep - Show all sales reps");
-                    System.out.println("\t7. lookup lead :id - Show a lead by id");
-                    System.out.println("\t8. lookup opportunity :id - Show an opportunity by id");
-                    System.out.println("\t9. lookup account :id - Show an account by id");
-                    System.out.println("\t10. lookup contact :id - Show a contact by id");
-                    System.out.println("\t11. lookup salesrep :id - Show a sales rep by id");
-                    System.out.println("\t12. convert :id - Convert a lead to a contact related with an opportunity and an account by lead id");
-                    System.out.println("\t13. close-lost :id - Close an opportunity as lost by id");
-                    System.out.println("\t14. close-won :id - Close an opportunity as won by id");
-                    System.out.println("\t15. new salesrep - Create a new sales rep");
-                    System.out.println("\t16. report lead by salesrep - show leads by salesrep");
-                    System.out.println("\t17. report opportunity by salesrep - show leads by salesrep");
-                    System.out.println("\t18. report closed won by salesrep - show closed won by salesrep");
-                    System.out.println("\t19. report open by salesrep - show open by salesrep");
-                    System.out.println("\t21. report opportunity by :attribute - show opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
-                    System.out.println("\t22. report closed won by :attribute - show closed won by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
-                    System.out.println("\t23. report open by :attribute - show open by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
-                    System.out.println("\t24. report closed lost by :attribute - show closed lost by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
+                    System.out.println("\t1. new salesrep - Create a new sales rep");
+                    System.out.println("\t2. new lead - Create a new lead");
+                    System.out.println("\t3. show leads - Show all leads");
+                    System.out.println("\t4. show opportunities - Show all opportunities");
+                    System.out.println("\t5. show accounts - Show all accounts");
+                    System.out.println("\t6. show contacts - Show all contacts");
+                    System.out.println("\t7. show salesrep - Show all sales reps");
+                    System.out.println("\t8. lookup lead :id - Show a lead by id");
+                    System.out.println("\t9. lookup opportunity :id - Show an opportunity by id");
+                    System.out.println("\t10. lookup account :id - Show an account by id");
+                    System.out.println("\t11. lookup contact :id - Show a contact by id");
+                    System.out.println("\t12. lookup salesrep :id - Show a sales rep by id");
+                    System.out.println("\t13. convert :id - Convert a lead to a contact related with an opportunity and an account by lead id");
+                    System.out.println("\t14. close-lost :id - Close an opportunity as lost by id");
+                    System.out.println("\t15. close-won :id - Close an opportunity as won by id");
+                    System.out.println("\t16. report lead by salesrep - show number of leads by salesrep");
+                    System.out.println("\t17. report opportunity by salesrep - show number of opportunities by salesrep");
+                    System.out.println("\t18. report closed won by salesrep - show number of closed won opportunities by salesrep");
+                    System.out.println("\t19. report open by salesrep - show opened number of opportunities by salesrep");
+                    System.out.println("\t21. report opportunity by :attribute - show number of opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
+                    System.out.println("\t22. report closed won by :attribute - show number of closed won opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
+                    System.out.println("\t23. report open by :attribute - show number of opened opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
+                    System.out.println("\t24. report closed lost by :attribute - show number of closed lost opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
                     System.out.println("\t25. exit - Exit the program");
-
                 }),
 
                 // Show commands

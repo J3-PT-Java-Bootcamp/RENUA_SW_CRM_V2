@@ -25,18 +25,6 @@ public class UserInput {
         return res.equals("y");
     }
 
-    public static Long getLongNumber() {
-        final var scanner = new Scanner(System.in);
-        do {
-            try {
-                long number = scanner.nextLong();
-                return number;
-            } catch(Exception e) {
-                System.out.println("[!] Invalid number");
-            }
-        } while(true);
-    }
-
     public static Integer getIntNumber() {
         final var scanner = new Scanner(System.in);
         do {

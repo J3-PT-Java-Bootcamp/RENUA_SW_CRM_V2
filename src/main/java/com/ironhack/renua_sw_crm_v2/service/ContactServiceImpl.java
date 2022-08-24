@@ -25,7 +25,7 @@ public class ContactServiceImpl implements ContactService {
     public void show(Long id) {
         final var row = contactRepository.findById(id);
         if(row.isEmpty()) ErrorHelper.notFound();
-        else System.out.println(row.get());
+        else System.out.println(row.get().toString("Contact", ""));
     }
     @Override
     public Contact getById(Long id) throws NotFoundException {

@@ -55,7 +55,7 @@ public class LeadServiceImpl implements LeadService {
     public void show(Long id) {
         final var row = leadRepository.findById(id);
         if(row.isEmpty()) ErrorHelper.notFound();
-        else System.out.println(row.get());
+        else System.out.println(row.get().toString("Lead", "SalesRep: " + row.get().getSalesRep().getId() + "\n"));
     }
 
     @Override

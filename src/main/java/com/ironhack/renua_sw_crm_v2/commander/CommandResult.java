@@ -24,13 +24,6 @@ public class CommandResult<T> {
         this.command.run(this);
     }
 
-    private void setParameters(Map<String, String> parameters) {
-        this.parameters = parameters;
-    }
-    public String getParameter(String key) {
-        return getParameters().get(key);
-    }
-
     public Long getLongParameter(String key) {
         return Long.parseLong((getParameters().get(key)));
     }
