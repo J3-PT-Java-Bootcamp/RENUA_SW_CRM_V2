@@ -7,11 +7,8 @@ import com.ironhack.renua_sw_crm_v2.enums.OpportunityStatus;
 import com.ironhack.renua_sw_crm_v2.enums.ProductType;
 import com.ironhack.renua_sw_crm_v2.error.NotFoundException;
 import com.ironhack.renua_sw_crm_v2.model.Contact;
-import com.ironhack.renua_sw_crm_v2.model.Lead;
 import com.ironhack.renua_sw_crm_v2.model.Opportunity;
-import com.ironhack.renua_sw_crm_v2.model.SalesRep;
 import com.ironhack.renua_sw_crm_v2.utils.TestDataService;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,14 +42,9 @@ class AccountServiceImplTest {
         testDataService.generateData();
     }
 
-    @AfterEach
-    void tearDown() {
-        testDataService.deleteData();
-    }
-
     @Test
     void test_addOpportunityAndContact_ok() throws NotFoundException {
-        var firstSalesRep = salesRepRepository.findById(1L).orElseThrow(); // Sergi
+        var firstSalesRep = salesRepRepository.findById(1L).orElseThrow();
 
         var contact = new Contact("Marco", "649649649", "marco@mail.com", "McDonalds");
         var contactSaved =contactRepository.save(contact);
