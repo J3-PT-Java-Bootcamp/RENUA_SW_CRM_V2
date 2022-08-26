@@ -42,6 +42,7 @@ public class CRMStarterService {
     @Autowired
     ProductService productService;
 
+    @EventListener(value = ApplicationReadyEvent.class)
     public void CRMStarterService() {
 
         System.out.println("Hello, welcome to the RENUA CRM!");
