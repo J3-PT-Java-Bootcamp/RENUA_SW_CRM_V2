@@ -1,6 +1,15 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
+import com.ironhack.renua_sw_crm_v2.Repository.ContactRepository;
+import com.ironhack.renua_sw_crm_v2.Repository.OpportunityRepository;
+import com.ironhack.renua_sw_crm_v2.Repository.SalesRepRepository;
+import com.ironhack.renua_sw_crm_v2.enums.OpportunityStatus;
+import com.ironhack.renua_sw_crm_v2.enums.ProductType;
 import com.ironhack.renua_sw_crm_v2.error.NotFoundException;
+import com.ironhack.renua_sw_crm_v2.model.Contact;
+import com.ironhack.renua_sw_crm_v2.model.Lead;
+import com.ironhack.renua_sw_crm_v2.model.Opportunity;
+import com.ironhack.renua_sw_crm_v2.model.SalesRep;
 import com.ironhack.renua_sw_crm_v2.utils.TestDataService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +31,15 @@ class AccountServiceImplTest {
     @Autowired
     AccountService accountService;
 
+    @Autowired
+    SalesRepRepository salesRepRepository;
+
+    @Autowired
+    ContactRepository contactRepository;
+
+    @Autowired
+    OpportunityRepository opportunityRepository;
+
     @BeforeEach
     void setUp() {
         testDataService.generateData();
@@ -29,14 +47,22 @@ class AccountServiceImplTest {
 
     @AfterEach
     void tearDown() {
+        testDataService.deleteData();
     }
 
     @Test
-    void test_createAccount_ok() {
-    }
+    void test_addOpportunityAndContact_ok() throws NotFoundException {
+        var firstSalesRep = salesRepRepository.findById(1L).orElseThrow(); // Sergi
 
-    @Test
-    void test_addOpportunityAndContact_ok() {
+        var contact = new Contact("Marco", "649649649", "marco@mail.com", "McDonalds");
+        var contactSaved =contactRepository.save(contact);
+
+        var opportunity = new Opportunity(ProductType.BOX, 10, contact, OpportunityStatus.OPEN, firstSalesRep);
+        var opportunitySaved = opportunityRepository.save(opportunity);
+
+        var account = accountService.getById(1L);
+        var accountUpdated = accountService.addOpportunityAndContact(account, opportunitySaved, contactSaved);
+        assertEquals(4, accountUpdated.getContactList().size() + accountUpdated.getOpportunityList().size());
     }
 
     @Test

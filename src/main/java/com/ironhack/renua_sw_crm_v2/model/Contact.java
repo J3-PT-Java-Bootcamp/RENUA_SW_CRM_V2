@@ -26,4 +26,8 @@ public class Contact extends User {
     public Contact(Lead lead) {
         super(lead.name, lead.phoneNumber, lead.email, lead.companyName);
     }
+
+    public Contact(String name, String phoneNumber, String email, String companyName) {
+        super(name, phoneNumber, email, companyName);
+    }
 }

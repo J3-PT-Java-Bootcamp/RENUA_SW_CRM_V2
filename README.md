@@ -24,6 +24,7 @@ We will not explain each case, so here are our criteria when deciding to test a 
 - Not a private method
 - That the method does not return a message by console.
 - Do not duplicate methods, i.e. if there are two methods that return the same thing, only evaluate one.
+- Ask to type in console.
 
 ### Diagram folders
 - **Commander**: Use to handle the command lines.

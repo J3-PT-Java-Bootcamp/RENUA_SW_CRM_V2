@@ -11,5 +11,5 @@ public interface AccountService {
     void show();
     void show(Long id);
     Account getById(Long id) throws NotFoundException;
-    void addOpportunityAndContact(Account account, Opportunity opportunity, Contact contact);
+    Account addOpportunityAndContact(Account account, Opportunity opportunity, Contact contact);
 }

@@ -54,10 +54,10 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void addOpportunityAndContact(Account account, Opportunity opportunity, Contact contact) {
+    public Account addOpportunityAndContact(Account account, Opportunity opportunity, Contact contact) {
         account.getContactList().add(contact);
         account.getOpportunityList().add(opportunity);
-        accountRepository.save(account);
+        return accountRepository.save(account);
     }
 
     @Override
