@@ -47,6 +47,16 @@ public class Account {
         setOpportunityList(new HashSet<>());
     }
 
+    public Account(IndustryType industry, int employeeCount, String city, String country, String companyName, Set<Contact> contactList, Set<Opportunity> opportunityList) {
+        this.industry = industry;
+        this.employeeCount = employeeCount;
+        this.city = city;
+        this.country = country;
+        this.companyName = companyName;
+        this.contactList = contactList;
+        this.opportunityList = opportunityList;
+    }
+
     @Override
     public String toString() {
         return "Account{" + "\n" +

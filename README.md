@@ -14,6 +14,10 @@ When running the project, the first recommended command to use is "help", which 
 ![use_case.png](use_case.png)
 
 ### Tests
+
+        Before run the test, please, remove or comment de line 45 from CRMStarterService
+        @EventListener(value = ApplicationReadyEvent.class)
+
 We have tested all the methods that we have considered appropriate, that means that not all methods have tests but that is for a reason.
 We will not explain each case, so here are our criteria when deciding to test a method:
 - That is not a constructor, a toString() or a simple getter or setter
