@@ -32,20 +32,4 @@ class SalesRepServiceImplTest {
         var salesRep = salesRepService.getById(1L);
         assertEquals(1L, salesRep.getId());
     }
-
-    @Test
-    void test_reportLeadBySalesRep_ok() {
-    }
-
-    @Test
-    void test_reportOpportunityBySalesRep_ok() {
-    }
-
-    @Test
-    void test_reportClosedWonBySalesRep_ok() {
-    }
-
-    @Test
-    void test_reportOpenBySalesRep_ok() {
-    }
 }
