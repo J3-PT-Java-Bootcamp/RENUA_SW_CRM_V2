@@ -30,53 +30,63 @@ public class TestDataService {
 
     public void generateData() {
 
-        var salesRep = List.of(
-                new SalesRep("Sergi"),
-                new SalesRep("Ivan"),
-                new SalesRep("Joel")
-        );
+        if(
+            !(salesRepRepository.existsById(1L) &&
+            leadRepository.existsById(1L) &&
+            contactRepository.existsById(1L) &&
+            opportunityRepository.existsById(1L) &&
+            accountRepository.existsById(1L))
+        ) {
 
-        var salesRepSaved = salesRepRepository.saveAll(salesRep);
+            var salesRep = List.of(
+                    new SalesRep("Sergi"),
+                    new SalesRep("Ivan"),
+                    new SalesRep("Joel")
+            );
 
-        var leads = List.of(
-                new Lead("Salvatore", "615615615", "salvatore@mail.com", "McDonalds", salesRepSaved.get(0)),
-                new Lead("Jorge", "654765476", "jorge@mail.com", "Decathlon", salesRepSaved.get(1)),
-                new Lead("Lisa", "632632632", "lisa@mail.com", "Zara", salesRepSaved.get(0)),
-                new Lead("Cristina", "698698698", "cristina@mail.com", "Coca-cola", salesRepSaved.get(1))
-        );
+            var salesRepSaved = salesRepRepository.saveAll(salesRep);
 
-        leadRepository.save(leads.get(1));
-        leadRepository.save(leads.get(2));
+            var leads = List.of(
+                    new Lead("Salvatore", "615615615", "salvatore@mail.com", "McDonalds", salesRepSaved.get(0)),
+                    new Lead("Jorge", "654765476", "jorge@mail.com", "Decathlon", salesRepSaved.get(1)),
+                    new Lead("Lisa", "632632632", "lisa@mail.com", "Zara", salesRepSaved.get(0)),
+                    new Lead("Cristina", "698698698", "cristina@mail.com", "Coca-cola", salesRepSaved.get(1))
+            );
 
-        var contacts = List.of(
-                new Contact(leads.get(0)),
-                new Contact(leads.get(3))
-        );
+            leadRepository.save(leads.get(1));
+            leadRepository.save(leads.get(2));
 
-        var contactsSaved = contactRepository.saveAll(contacts);
+            var contacts = List.of(
+                    new Contact(leads.get(0)),
+                    new Contact(leads.get(3))
+            );
 
-        var opportunities = List.of(
-                new Opportunity(ProductType.HYBRID, 5, contactsSaved.get(0), OpportunityStatus.OPEN, salesRepSaved.get(0)),
-                new Opportunity(ProductType.FLATBED, 10, contactsSaved.get(1), OpportunityStatus.OPEN, salesRepSaved.get(1))
-        );
+            var contactsSaved = contactRepository.saveAll(contacts);
 
-        var opportunitiesSaved = opportunityRepository.saveAll(opportunities);
+            var opportunities = List.of(
+                    new Opportunity(ProductType.HYBRID, 5, contactsSaved.get(0), OpportunityStatus.OPEN, salesRepSaved.get(0)),
+                    new Opportunity(ProductType.FLATBED, 10, contactsSaved.get(1), OpportunityStatus.OPEN, salesRepSaved.get(1))
+            );
 
-        var accounts = List.of(
-                new Account(IndustryType.MANUFACTURING, 250, "Barcelona", "Spain", "McDonalds"),
-                new Account(IndustryType.ECOMMERCE, 300, "Madrid", "Spain", "Coca-cola")
-        );
+            var opportunitiesSaved = opportunityRepository.saveAll(opportunities);
 
-        var accountsSaved = accountRepository.saveAll(accounts);
+            var accounts = List.of(
+                    new Account(IndustryType.MANUFACTURING, 250, "Barcelona", "Spain", "McDonalds"),
+                    new Account(IndustryType.ECOMMERCE, 300, "Madrid", "Spain", "Coca-cola")
+            );
 
-        contactsSaved.get(0).setContactAccount(accountsSaved.get(0));
-        contactRepository.save(contactsSaved.get(0));
-        opportunitiesSaved.get(0).setOpportunityAccount(accountsSaved.get(0));
-        opportunityRepository.save(opportunitiesSaved.get(0));
+            var accountsSaved = accountRepository.saveAll(accounts);
 
-        contactsSaved.get(1).setContactAccount(accountsSaved.get(1));
-        contactRepository.save(contactsSaved.get(1));
-        opportunitiesSaved.get(1).setOpportunityAccount(accountsSaved.get(1));
-        opportunityRepository.save(opportunitiesSaved.get(1));
+            contactsSaved.get(0).setContactAccount(accountsSaved.get(0));
+            contactRepository.save(contactsSaved.get(0));
+            opportunitiesSaved.get(0).setOpportunityAccount(accountsSaved.get(0));
+            opportunityRepository.save(opportunitiesSaved.get(0));
+
+            contactsSaved.get(1).setContactAccount(accountsSaved.get(1));
+            contactRepository.save(contactsSaved.get(1));
+            opportunitiesSaved.get(1).setOpportunityAccount(accountsSaved.get(1));
+            opportunityRepository.save(opportunitiesSaved.get(1));
+        }
+
     }
 }
