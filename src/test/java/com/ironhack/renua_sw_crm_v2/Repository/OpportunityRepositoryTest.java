@@ -1,14 +1,23 @@
 package com.ironhack.renua_sw_crm_v2.Repository;
 
+import com.ironhack.renua_sw_crm_v2.utils.TestDataService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class OpportunityRepositoryTest {
 
+    @Autowired
+    TestDataService testDataService;
+
+    @Autowired
+    OpportunityRepository opportunityRepository;
+
     @BeforeEach
     void setUp() {
+        testDataService.generateData();
     }
 
     @Test
