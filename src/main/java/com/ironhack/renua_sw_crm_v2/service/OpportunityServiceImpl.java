@@ -59,6 +59,7 @@ public class OpportunityServiceImpl implements OpportunityService {
             System.out.println("\nAccount ID:\n");
             final Long accountId = Long.parseLong(UserInput.readText());
             account = accountService.getById(accountId);
+            System.out.println("Accout added: " + account.getId());
         }
 
         opportunity.setOpportunityAccount(account);
