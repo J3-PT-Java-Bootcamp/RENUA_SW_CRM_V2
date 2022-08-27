@@ -80,6 +80,9 @@ public class CRMStarterService {
                     System.out.println("\t23. report open by :attribute - show number of opened opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
                     System.out.println("\t24. report closed lost by :attribute - show number of closed lost opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
                     System.out.println("\t25. exit - Exit the program");
+                    System.out.println("\t26. Mean Opps per Account");
+                    System.out.println("\t27. Min Opps per Account");
+                    System.out.println("\t28. Max Opps per Account");
                 }),
 
                 // Show commands
@@ -247,7 +250,7 @@ public class CRMStarterService {
                 new Command<>("Mean Opps per Account", CommandType.MEAN_OPPS_PER_ACCOUNT).addOnRun((cr) -> {
                     accountService.meanOppsPerAccount();
                 }),
-                new Command<>("Mean Opps per Account", CommandType.MAX_OPPS_PER_ACCOUNT).addOnRun((cr) -> {
+                new Command<>("Max Opps per Account", CommandType.MAX_OPPS_PER_ACCOUNT).addOnRun((cr) -> {
                     accountService.maxOppsPerAccount();
                 }),
                 new Command<>("Min Opps per Account", CommandType.MIN_OPPS_PER_ACCOUNT).addOnRun((cr) -> {
