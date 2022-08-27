@@ -15,11 +15,11 @@ import javax.persistence.*;
 public class Contact extends User {
 
     @ManyToOne
-    @JoinColumn(name = "contact_account_id")
+    @JoinColumn(name = "account_id")
     @JsonIgnore
-    private Account contactAccount;
+    private Account account;
 
-    @OneToOne(mappedBy = "decisionMaker", cascade = CascadeType.MERGE)
+    @OneToOne(mappedBy = "decisionMaker")
     @JsonIgnore
     private Opportunity opportunity;
 

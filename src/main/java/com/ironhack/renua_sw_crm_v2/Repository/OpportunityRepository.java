@@ -50,5 +50,14 @@ public interface OpportunityRepository extends JpaRepository<Opportunity, Long> 
     @Query(value = "SELECT a.industry, count(*) num_opportunities FROM opportunities o JOIN accounts a ON o.opportunity_account_id = a.id AND o.status = 'OPEN' GROUP BY a.industry", nativeQuery = true)
     List<Object[]> reportOpenByIndustry();
 
+    //Opportunity
+    @Query("SELECT AVG(quantity) FROM Opportunity")
+    Double meanQuantity();
+
+    @Query("SELECT MAX(quantity) FROM Opportunity")
+    Double maxQuantity();
+
+    @Query("SELECT MIN(quantity) FROM Opportunity")
+    Double minQuantity();
 
 }

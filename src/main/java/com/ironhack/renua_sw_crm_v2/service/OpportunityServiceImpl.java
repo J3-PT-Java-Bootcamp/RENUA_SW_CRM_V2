@@ -10,8 +10,10 @@ import com.ironhack.renua_sw_crm_v2.model.*;
 import com.ironhack.renua_sw_crm_v2.userinput.UserInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class OpportunityServiceImpl implements OpportunityService {
 
     @Autowired
@@ -27,7 +29,7 @@ public class OpportunityServiceImpl implements OpportunityService {
     LeadService leadService;
 
     @Override
-    public Opportunity createFromLead(Long leadId) throws NotFoundException {
+    public void createFromLead(Long leadId) throws NotFoundException {
         final var lead = leadService.getById(leadId);
         leadService.delete(lead);
 
@@ -42,31 +44,54 @@ public class OpportunityServiceImpl implements OpportunityService {
         System.out.print("\nNumber of trucks:\n");
         int trucksNum = UserInput.getIntNumber();
 
-        final var contact = contactService.createFromLead(lead);
-        System.out.print("Contact created: " + contact.getId() + "\n");
-
-        final var opportunity = new Opportunity(product, trucksNum, contact, OpportunityStatus.OPEN, lead.getSalesRep());
-
-        opportunityRepository.save(opportunity);
-        System.out.print("Opportunity created: " + opportunity.getId() + "\n");
+        final var decisionMaker = contactService.createFromLead(lead);
+        System.out.print("Contact created: " + decisionMaker.getId() + "\n");
 
         System.out.println("Would you like to create a new Account? (Y/N)");
-        Account account;
         if(UserInput.getYesNo()) {
-            account = accountService.createAccount(contact.getCompanyName());
-            System.out.println("Accout created: " + account.getId());
+            var account = accountService.createAccount(decisionMaker.getCompanyName());
+            System.out.println("Account created: " + account.getId());
+            var opportunity = new Opportunity(product, trucksNum, decisionMaker, OpportunityStatus.OPEN, lead.getSalesRep(), account);
+            opportunityRepository.save(opportunity);
+            System.out.println("opportunity id: " + opportunity.getId());
+
+            account.getOpportunityList().add(opportunity);
+            account.getContactList().add(opportunity.getDecisionMaker());
+
         } else {
-            System.out.println("\nAccount ID:\n");
-            final Long accountId = Long.parseLong(UserInput.readText());
-            account = accountService.getById(accountId);
+            var account = accountService.assignData(decisionMaker, lead.getSalesRep(), product, trucksNum);
+            var opportunity = new Opportunity(product, trucksNum, decisionMaker, OpportunityStatus.OPEN, lead.getSalesRep(), account);
+            opportunityRepository.save(opportunity);
+            System.out.print("Opportunity created: " + opportunity.getId() + "\n");
+
+            var opportunityList = account.getOpportunityList();
+            opportunityList.add(opportunity);
+
+            account.getOpportunityList().add(opportunity);
+            account.getContactList().add(opportunity.getDecisionMaker());
+            System.out.print("Data assigned to Account\n");
+            System.out.println("Opportunity: " + opportunity.getId() + "  " + "Decision maker: " + opportunity.getDecisionMaker().getId());
+
         }
 
-        opportunity.setOpportunityAccount(account);
-        opportunityRepository.save(opportunity);
-        contact.setContactAccount(account);
-        contactService.save(contact);
+    }
 
-        return opportunity;
+    @Override
+    public void meanQuantity() {
+        var mean = opportunityRepository.meanQuantity();
+        System.out.println(mean);
+    }
+
+    @Override
+    public void maxQuantity() {
+        var max = opportunityRepository.maxQuantity();
+        System.out.println(max);
+    }
+
+    @Override
+    public void minQuantity() {
+        var min = opportunityRepository.minQuantity();
+        System.out.println(min);
     }
 
     @Override

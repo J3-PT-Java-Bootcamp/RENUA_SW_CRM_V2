@@ -1,7 +1,6 @@
 package com.ironhack.renua_sw_crm_v2.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ironhack.renua_sw_crm_v2.enums.IndustryType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,11 +8,13 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @Table(name = "accounts")
 public class Account {
 
@@ -28,23 +29,25 @@ public class Account {
     private String city;
     private String country;
     private String companyName;
-    @OneToMany(
-            mappedBy = "contactAccount",
-            fetch = FetchType.EAGER,
-            cascade = CascadeType.MERGE
-    )
-    private Set<Contact> contactList;
+    @OneToMany()
+    private List<Contact> contactList;
 
     @OneToMany(
-            mappedBy = "opportunityAccount",
+            mappedBy = "account",
             fetch = FetchType.EAGER,
-            cascade = CascadeType.MERGE
+            cascade = CascadeType.MERGE,
+            orphanRemoval = true
     )
-    private Set<Opportunity> opportunityList;
+    private List<Opportunity> opportunityList;
 
-    public Account() {
-        setContactList(new HashSet<>());
-        setOpportunityList(new HashSet<>());
+    public Account(IndustryType industry, int employeeCount, String city, String country, String companyName, List<Contact> contactList, List<Opportunity> opportunityList) {
+        setIndustry(industry);
+        setEmployeeCount(employeeCount);
+        setCity(city);
+        setCountry(country);
+        setCompanyName(companyName);
+        setContactList(contactList);
+        setOpportunityList(opportunityList);
     }
 
     @Override

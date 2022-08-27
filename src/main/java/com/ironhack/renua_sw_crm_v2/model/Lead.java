@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Lead extends User {
 
     @ManyToOne()
-    @JoinColumn(name = "sales_rep_id")
+    @JoinColumn(name = "sales_rep_id", nullable = false)
     private SalesRep salesRep;
 
     public Lead(String name, String phoneNumber, String email, String companyName, SalesRep salesRep) {

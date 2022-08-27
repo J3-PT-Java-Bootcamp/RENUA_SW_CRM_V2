@@ -219,6 +219,39 @@ public class CRMStarterService {
                     industryService.reportOpenByIndustry();
                 }),
 
+                //EmployeeCount commands
+                new Command<>("Mean EmployeeCount", CommandType.MEAN_EMPLOYEE_COUNT).addOnRun((cr) -> {
+                    accountService.meanEmployeecount();
+                }),
+                new Command<>("Max EmployeeCount", CommandType.MAX_EMPLOYEE_COUNT).addOnRun((cr) -> {
+                    accountService.maxEmployeecount();
+                }),
+                new Command<>("Min EmployeeCount", CommandType.MIN_EMPLOYEE_COUNT).addOnRun((cr) -> {
+                    accountService.minEmployeecount();
+                }),
+
+                //Quantity commands
+                new Command<>("Mean Quantity", CommandType.MEAN_QUANTITY).addOnRun((cr) -> {
+                    opportunityService.meanQuantity();
+                }),
+                new Command<>("Max Quantity", CommandType.MAX_QUANTITY).addOnRun((cr) -> {
+                    opportunityService.maxQuantity();
+                }),
+                new Command<>("Min Quantity", CommandType.MIN_QUANTITY).addOnRun((cr) -> {
+                    opportunityService.minQuantity();
+                }),
+
+                //Opportunity commands
+                new Command<>("Mean Opps per Account", CommandType.MEAN_OPPS_PER_ACCOUNT).addOnRun((cr) -> {
+                    accountService.meanOppsPerAccount();
+                }),
+                new Command<>("Mean Opps per Account", CommandType.MAX_OPPS_PER_ACCOUNT).addOnRun((cr) -> {
+                    accountService.maxOppsPerAccount();
+                }),
+                new Command<>("Min Opps per Account", CommandType.MIN_OPPS_PER_ACCOUNT).addOnRun((cr) -> {
+                    accountService.minOppsPerAccount();
+                }),
+
         });
 
         // Run event when a command is executed
