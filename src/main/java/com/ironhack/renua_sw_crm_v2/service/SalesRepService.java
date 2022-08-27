@@ -2,6 +2,7 @@ package com.ironhack.renua_sw_crm_v2.service;
 
 import com.ironhack.renua_sw_crm_v2.error.NotFoundException;
 import com.ironhack.renua_sw_crm_v2.model.SalesRep;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
