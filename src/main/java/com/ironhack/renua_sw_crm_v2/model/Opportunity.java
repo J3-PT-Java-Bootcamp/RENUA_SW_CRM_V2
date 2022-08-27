@@ -1,59 +1,50 @@
 package com.ironhack.renua_sw_crm_v2.model;
 
-import com.ironhack.enums.Product;
-import com.ironhack.enums.Status;
-import com.ironhack.serialize.Serialize;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ironhack.renua_sw_crm_v2.enums.ProductType;
+import com.ironhack.renua_sw_crm_v2.enums.OpportunityStatus;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.UUID;
+import javax.persistence.*;
 
-public class Opportunity extends Serialize {
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@Table(name = "opportunities")
+public class Opportunity {
 
-    private Product product;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Enumerated(EnumType.STRING)
+    private ProductType product;
     private int quantity;
-    private UUID decisionMaker;
-    private Status status;
 
-    static {
-        serialVersionUID = 2L; // No modify
-    }
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "decision_maker_id")
+    private Contact decisionMaker;
 
-    public Opportunity(Product product, int quantity, UUID decisionMaker, Status status) {
+    @Enumerated(EnumType.STRING)
+    private OpportunityStatus status;
+
+    @ManyToOne()
+    @JoinColumn(name = "opportunity_account_id")
+    @JsonIgnore
+    private Account opportunityAccount;
+
+    @ManyToOne()
+    @JoinColumn(name = "sales_rep_id")
+    private SalesRep salesRep;
+
+    public Opportunity(ProductType product, int quantity, Contact decisionMaker, OpportunityStatus status, SalesRep salesRep) {
         setProduct(product);
         setQuantity(quantity);
         setDecisionMaker(decisionMaker);
         setStatus(status);
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public UUID getDecisionMaker() {
-        return decisionMaker;
-    }
-
-    public void setDecisionMaker(UUID decisionMaker) {
-        this.decisionMaker = decisionMaker;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
+        setSalesRep(salesRep);
     }
 
     @Override
@@ -62,8 +53,10 @@ public class Opportunity extends Serialize {
                 "  id=" + id +  "\n" +
                 "  product=" + product +  "\n" +
                 "  quantity=" + quantity +  "\n" +
-                "  decisionMaker=" + decisionMaker +  "\n" +
+                "  decisionMaker=" + decisionMaker.getId() +  "\n" +
                 "  status=" + status +  "\n" +
-                "  }";
+                "  salesRep=" + salesRep.getId() +  "\n" +
+                "}";
     }
+
 }

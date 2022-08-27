@@ -1,42 +1,14 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
-import com.ironhack.model.Contact;
-import com.ironhack.serialize.SerializeService;
+import com.ironhack.renua_sw_crm_v2.error.NotFoundException;
+import com.ironhack.renua_sw_crm_v2.model.Contact;
+import com.ironhack.renua_sw_crm_v2.model.Lead;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+public interface ContactService {
 
-public class ContactService {
-    private static final Map<UUID, Contact> contacts = new HashMap<>();
-
-    static {
-        var objects = SerializeService.getAll();
-        objects.forEach((id, object) -> {
-            if(object instanceof Contact) {
-                var contact = (Contact) object;
-                contacts.put(contact.getId(), contact);
-            }
-        });
-    }
-
-    public static void show() {
-        contacts.forEach((id, contact) -> {
-            System.out.println(contact.toString("Contact"));
-        });
-    }
-
-    public static void show(UUID id) {
-        final var contact = getById(id);
-        System.out.println(contact.toString("Contact"));
-    }
-
-    public static Contact getById(UUID id) {
-        return contacts.get(id);
-    }
-
-    public static void put(Contact contact) {
-        contacts.put(contact.getId(), contact);
-        SerializeService.put(contact);
-    }
+    void show();
+    void show(Long id);
+    Contact getById(Long id) throws NotFoundException;
+    Contact createFromLead(Lead lead);
+    Contact save(Contact contact);
 }

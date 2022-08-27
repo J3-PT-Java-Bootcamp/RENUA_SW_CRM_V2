@@ -1,89 +1,60 @@
 package com.ironhack.renua_sw_crm_v2.model;
 
-import com.ironhack.enums.Industry;
-import com.ironhack.serialize.Serialize;
 
-import java.util.List;
-import java.util.UUID;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ironhack.renua_sw_crm_v2.enums.IndustryType;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-public class Account extends Serialize {
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
-    private Industry industry;
+@Entity
+@Getter
+@Setter
+@Table(name = "accounts")
+public class Account {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Enumerated(EnumType.STRING)
+    private IndustryType industry;
+    @Column(name = "employee_count")
     private int employeeCount;
     private String city;
     private String country;
-    private String companyName; // This attribute can be removed; it appears in one place in the exercise description and not in another.
-    private List<UUID> contactList;
-    private List<UUID> opportunityList;
+    private String companyName;
+    @OneToMany(
+            mappedBy = "contactAccount",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.MERGE
+    )
+    private Set<Contact> contactList;
 
-    static {
-        serialVersionUID = 5L; // No modify
+    @OneToMany(
+            mappedBy = "opportunityAccount",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.MERGE
+    )
+    private Set<Opportunity> opportunityList;
+
+    public Account() {
+        setContactList(new HashSet<>());
+        setOpportunityList(new HashSet<>());
     }
 
-    public Account(Industry industry, int employeeCount, String city, String country, String companyName, List<UUID> contactList, List<UUID> opportunityList) {
+    public Account(IndustryType industry, int employeeCount, String city, String country, String companyName) {
         this.industry = industry;
         this.employeeCount = employeeCount;
         this.city = city;
         this.country = country;
         this.companyName = companyName;
-        this.contactList = contactList;
-        this.opportunityList = opportunityList;
-    }
-
-    public Industry getIndustry() {
-        return industry;
-    }
-
-    public void setIndustry(Industry industry) {
-        this.industry = industry;
-    }
-
-    public int getEmployeeCount() {
-        return employeeCount;
-    }
-
-    public void setEmployeeCount(int employeeCount) {
-        this.employeeCount = employeeCount;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public List<UUID> getContactList() {
-        return contactList;
-    }
-
-    public void setContactList(List<UUID> contactList) {
-        this.contactList = contactList;
-    }
-
-    public List<UUID> getOpportunityList() {
-        return opportunityList;
-    }
-
-    public void setOpportunityList(List<UUID> opportunityList) {
-        this.opportunityList = opportunityList;
+        setContactList(new HashSet<>());
+        setOpportunityList(new HashSet<>());
     }
 
     @Override
@@ -95,8 +66,34 @@ public class Account extends Serialize {
                 " city='" + city + '\'' + "\n" +
                 " country='" + country + '\'' + "\n" +
                 " companyName='" + companyName + '\'' + "\n" +
-                " contactList=" + contactList + "\n" +
-                " opportunityList=" + opportunityList + "\n" +
-                '}';
+                " contactList=" + contactListToString() + "\n" +
+                " opportunityList=" + opportunityListToString() + "\n" +
+                "}";
+    }
+
+    private String contactListToString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        var counter = 1;
+        for (Contact contact : contactList) {
+            sb.append(contact.getId());
+            if(counter != contactList.size()) sb.append(", ");
+            counter++;
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+
+    private String opportunityListToString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        var counter = 1;
+        for (Opportunity opportunity : opportunityList) {
+            sb.append(opportunity.getId());
+            if(counter != opportunityList.size()) sb.append(", ");
+            counter++;
+        }
+        sb.append("]");
+        return sb.toString();
     }
 }

@@ -1,17 +1,26 @@
 package com.ironhack.renua_sw_crm_v2.model;
 
-import com.ironhack.serialize.Serialize;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-public abstract class User extends Serialize {
+import javax.persistence.*;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@MappedSuperclass
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     protected String name;
+    @Column(name = "phone_number")
     protected String phoneNumber;
     protected String email;
+    @Column(name = "company_name")
     protected String companyName;
-
-    static {
-        serialVersionUID = 1L; // No modify
-    }
 
     public User(String name, String phoneNumber, String email, String companyName) {
         setName(name);
@@ -20,45 +29,14 @@ public abstract class User extends Serialize {
         setCompanyName(companyName);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public String toString(String className) {
+    public String toString(String className, String extraAppend) {
         return className+"{" +  "\n" +
                 "  id=" + id +  "\n" +
                 "  name='" + name + '\'' +  "\n" +
                 "  phoneNumber='" + phoneNumber + '\'' +  "\n" +
                 "  email='" + email + '\'' +  "\n" +
                 "  companyName='" + companyName + '\'' +  "\n" +
+                "  " + extraAppend +
                 "}";
     }
 }
