@@ -1,5 +1,6 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
+import com.ironhack.renua_sw_crm_v2.Repository.AccountRepository;
 import com.ironhack.renua_sw_crm_v2.Repository.ContactRepository;
 import com.ironhack.renua_sw_crm_v2.Repository.OpportunityRepository;
 import com.ironhack.renua_sw_crm_v2.enums.ProductType;
@@ -26,6 +27,9 @@ public class OpportunityServiceImpl implements OpportunityService {
     @Autowired
     LeadService leadService;
 
+    @Autowired
+    AccountRepository accountRepository;
+
     @Override
     public Opportunity createFromLead(Long leadId) throws NotFoundException {
         final var lead = leadService.getById(leadId);
@@ -50,16 +54,24 @@ public class OpportunityServiceImpl implements OpportunityService {
         opportunityRepository.save(opportunity);
         System.out.print("Opportunity created: " + opportunity.getId() + "\n");
 
-        System.out.println("Would you like to create a new Account? (Y/N)");
+        var areAccounts = accountRepository.findAll().size() > 0;
         Account account;
-        if(UserInput.getYesNo()) {
+
+        if(areAccounts) {
+            System.out.println("Would you like to create a new Account? (Y/N)");
+            if(UserInput.getYesNo()) {
+                account = accountService.createAccount(contact.getCompanyName());
+                System.out.println("Accout created: " + account.getId());
+            } else {
+                System.out.println("\nAccount ID:\n");
+                final Long accountId = Long.parseLong(UserInput.readText());
+                account = accountService.getById(accountId);
+                System.out.println("Accout added: " + account.getId());
+            }
+        } else {
+            System.out.println("No account has been created yet. We will create one.");
             account = accountService.createAccount(contact.getCompanyName());
             System.out.println("Accout created: " + account.getId());
-        } else {
-            System.out.println("\nAccount ID:\n");
-            final Long accountId = Long.parseLong(UserInput.readText());
-            account = accountService.getById(accountId);
-            System.out.println("Accout added: " + account.getId());
         }
 
         opportunity.setOpportunityAccount(account);

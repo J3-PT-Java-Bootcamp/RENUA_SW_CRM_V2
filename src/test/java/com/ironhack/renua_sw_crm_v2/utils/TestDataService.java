@@ -39,9 +39,9 @@ public class TestDataService {
         ) {
 
             var salesRep = List.of(
-                    new SalesRep("Sergi"),
-                    new SalesRep("Ivan"),
-                    new SalesRep("Joel")
+                    new SalesRep("Carlos"),
+                    new SalesRep("Marta"),
+                    new SalesRep("Jose")
             );
 
             var salesRepSaved = salesRepRepository.saveAll(salesRep);
