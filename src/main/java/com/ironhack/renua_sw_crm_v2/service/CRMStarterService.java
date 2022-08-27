@@ -75,14 +75,20 @@ public class CRMStarterService {
                     System.out.println("\t17. report opportunity by salesrep - show number of opportunities by salesrep");
                     System.out.println("\t18. report closed won by salesrep - show number of closed won opportunities by salesrep");
                     System.out.println("\t19. report open by salesrep - show opened number of opportunities by salesrep");
-                    System.out.println("\t21. report opportunity by :attribute - show number of opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
-                    System.out.println("\t22. report closed won by :attribute - show number of closed won opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
-                    System.out.println("\t23. report open by :attribute - show number of opened opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
-                    System.out.println("\t24. report closed lost by :attribute - show number of closed lost opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
-                    System.out.println("\t25. exit - Exit the program");
-                    System.out.println("\t26. Mean Opps per Account");
-                    System.out.println("\t27. Min Opps per Account");
-                    System.out.println("\t28. Max Opps per Account");
+                    System.out.println("\t20. report opportunity by :attribute - show number of opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
+                    System.out.println("\t21. report closed won by :attribute - show number of closed won opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
+                    System.out.println("\t22. report open by :attribute - show number of opened opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
+                    System.out.println("\t23. report closed lost by :attribute - show number of closed lost opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
+                    System.out.println("\t24. exit - Exit the program");
+                    System.out.println("\t25. Mean Opps per Account");
+                    System.out.println("\t26. Min Opps per Account");
+                    System.out.println("\t27. Max Opps per Account");
+                    System.out.println("\t28. Mean EmployeeCount");
+                    System.out.println("\t29. Min EmployeeCount");
+                    System.out.println("\t30. Max EmployeeCount");
+                    System.out.println("\t31. Mean Quantity");
+                    System.out.println("\t32. Min Quantity");
+                    System.out.println("\t33. Max Quantity");
                 }),
 
                 // Show commands
