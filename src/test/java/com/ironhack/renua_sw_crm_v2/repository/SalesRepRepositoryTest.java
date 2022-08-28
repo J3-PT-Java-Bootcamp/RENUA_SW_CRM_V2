@@ -13,6 +13,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class SalesRepRepositoryTest {
 
+    // Before run the test, please, remove or comment de line 45 from CRMStarterService
+    // @EventListener(value = ApplicationReadyEvent.class)
+
     @Autowired
     TestDataService testDataService;
 
