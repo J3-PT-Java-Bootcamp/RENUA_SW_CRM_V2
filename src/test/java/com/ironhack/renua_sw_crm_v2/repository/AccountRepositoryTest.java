@@ -25,7 +25,7 @@ class AccountRepositoryTest {
     @Test
     void test_meanEmployeeCount_ok() {
         var report = accountRepository.meanEmployeeCount();
-        assertEquals(425.00, report);
+        assertEquals(275.00, report);
     }
 
     @Test
@@ -43,13 +43,13 @@ class AccountRepositoryTest {
     @Test
     void test_meanOppsPerAccount_ok() {
         var report = accountRepository.meanOppsPerAccount();
-        assertEquals(1.00, report);
+        assertEquals(1.50, report);
     }
 
     @Test
     void test_maxOppsPerAccount_ok() {
         var report = accountRepository.maxOppsPerAccount();
-        assertEquals(1.00, report);
+        assertEquals(2.00, report);
     }
 
     @Test
