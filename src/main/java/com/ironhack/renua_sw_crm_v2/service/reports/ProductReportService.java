@@ -1,11 +1,11 @@
-package com.ironhack.renua_sw_crm_v2.service;
+package com.ironhack.renua_sw_crm_v2.service.reports;
 
-import com.ironhack.renua_sw_crm_v2.Repository.OpportunityRepository;
+import com.ironhack.renua_sw_crm_v2.repository.OpportunityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProductService {
+public class ProductReportService {
     @Autowired
     OpportunityRepository opportunityRepository;
     public void reportOpportunityByTheProduct(){

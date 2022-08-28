@@ -7,6 +7,7 @@ import com.ironhack.renua_sw_crm_v2.enums.CommandType;
 import com.ironhack.renua_sw_crm_v2.enums.OpportunityStatus;
 import com.ironhack.renua_sw_crm_v2.error.ErrorHelper;
 import com.ironhack.renua_sw_crm_v2.error.NotFoundException;
+import com.ironhack.renua_sw_crm_v2.service.reports.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -31,18 +32,30 @@ public class CRMStarterService {
     LeadService leadService;
 
     @Autowired
-    CityService cityService;
+    CityReportService cityReportService;
 
     @Autowired
-    CountryService countryService;
+    CountryReportService countryReportService;
 
     @Autowired
-    IndustryService industryService;
+    IndustryReportService industryReportService;
 
     @Autowired
-    ProductService productService;
+    ProductReportService productReportService;
 
-    @EventListener(ApplicationReadyEvent.class)
+    @Autowired
+    QuantityReportService quantityReportService;
+
+    @Autowired
+    SalesRepReportService salesRepReportService;
+
+    @Autowired
+    EmployeeCountReportService employeeCountReportService;
+
+    @Autowired
+    AccountReportService accountReportService;
+
+//    @EventListener(ApplicationReadyEvent.class)
     public void CRMStarterService() {
 
         System.out.println("Hello, welcome to the RENUA CRM!");
@@ -70,14 +83,14 @@ public class CRMStarterService {
                     System.out.println("\t14. close-lost :id - Close an opportunity as lost by id");
                     System.out.println("\t15. close-won :id - Close an opportunity as won by id");
                     System.out.println("\t16. report lead by salesrep - show number of leads by salesrep");
-                    System.out.println("\t17. report opportunity by salesrep - show number of opportunities by salesrep");
-                    System.out.println("\t18. report closed won by salesrep - show number of closed won opportunities by salesrep");
-                    System.out.println("\t19. report open by salesrep - show opened number of opportunities by salesrep");
-                    System.out.println("\t21. report opportunity by :attribute - show number of opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
-                    System.out.println("\t22. report closed won by :attribute - show number of closed won opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
-                    System.out.println("\t23. report open by :attribute - show number of opened opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
-                    System.out.println("\t24. report closed lost by :attribute - show number of closed lost opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
-                    System.out.println("\t25. exit - Exit the program");
+                    System.out.println("\t20. report opportunity by :attribute - show number of opportunities by attribute, where attribute is one of the following: [salesRep], [the product], [city], [country], [industry]");
+                    System.out.println("\t21. report closed won by :attribute - show number of closed won opportunities by attribute, where attribute is one of the following: [salesRep], [the product], [city], [country], [industry]");
+                    System.out.println("\t22. report open by :attribute - show number of opened opportunities by attribute, where attribute is one of the following: [salesRep], [the product], [city], [country], [industry]");
+                    System.out.println("\t23. report closed lost by :attribute - show number of closed lost opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]");
+                    System.out.println("\t24. Mean :attribute - show the mean by attribute, where attribute is one of the following: [Opps per Account], [EmployeeAccount] or [Quantity]");
+                    System.out.println("\t25. Max :attribute - show the maximum by attribute, where attribute is one of the following: [Opps per Account], [EmployeeAccount] or [Quantity]");
+                    System.out.println("\t26. Min :attribute - show the minimum by attribute, where attribute is one of the following: [Opps per Account], [EmployeeAccount] or [Quantity]");
+                    System.out.println("\t27. exit - Exit the program");
                 }),
 
                 // Show commands
@@ -150,75 +163,109 @@ public class CRMStarterService {
                 new Command<>("new salesrep", CommandType.NEW_SALESREP).addOnRun((cr) -> {
                     salesRepService.createSalesRep();
                 }),
+
+                // Sales Rep Report
                 new Command<>("report lead by salesrep", CommandType.REPORT_LEAD_BY_SALESREP).addOnRun((cr) -> {
-                    salesRepService.reportLeadBySalesRep();
+                    salesRepReportService.reportLeadBySalesRep();
                 }),
                 new Command<>("report opportunity by salesrep", CommandType.REPORT_OPPORTUNITY_BY_SALESREP).addOnRun((cr) -> {
-                    salesRepService.reportOpportunityBySalesRep();
+                    salesRepReportService.reportOpportunityBySalesRep();
                 }),
                 new Command<>("report closed-won by salesrep", CommandType.REPORT_CLOSED_WON_BY_SALESREP).addOnRun((cr) -> {
-                    salesRepService.reportClosedWonBySalesRep();
+                    salesRepReportService.reportClosedWonBySalesRep();
                 }),
                 new Command<>("report open by salesrep", CommandType.REPORT_OPEN_BY_SALESREP).addOnRun((cr) -> {
-                    salesRepService.reportOpenBySalesRep();
+                    salesRepReportService.reportOpenBySalesRep();
                 }),
 
-                // Product commands
+                // Product report commands
                 new Command<>("Report Opportunity by the product", CommandType.REPORT_OPPORTUNITY_BY_THE_PRODUCT).addOnRun((cr) -> {
-                    productService.reportOpportunityByTheProduct();
+                    productReportService.reportOpportunityByTheProduct();
                 }),
                 new Command<>("Report CLOSED-WON by the product", CommandType.REPORT_CLOSED_WON_BY_THE_PRODUCT).addOnRun((cr) -> {
-                    productService.reportClosedWonByTheProduct();
+                    productReportService.reportClosedWonByTheProduct();
                 }),
                 new Command<>("Report CLOSED-LOST by the product", CommandType.REPORT_CLOSED_LOST_BY_THE_PRODUCT).addOnRun((cr) -> {
-                    productService.reportClosedLostByTheProduct();
+                    productReportService.reportClosedLostByTheProduct();
                 }),
                 new Command<>("Report OPEN by the product", CommandType.REPORT_OPEN_BY_THE_PRODUCT).addOnRun((cr) -> {
-                    productService.reportOpenByTheProduct();
+                    productReportService.reportOpenByTheProduct();
                 }),
 
-                // Country commands
+                // Country report commands
                 new Command<>("Report Opportunity by country", CommandType.REPORT_OPPORTUNITY_BY_COUNTRY).addOnRun((cr) -> {
-                    countryService.reportOpportunityByCountry();
+                    countryReportService.reportOpportunityByCountry();
                 }),
                 new Command<>("Report CLOSED-WON by country", CommandType.REPORT_CLOSED_WON_BY_COUNTRY).addOnRun((cr) -> {
-                    countryService.reportClosedWonByCountry();
+                    countryReportService.reportClosedWonByCountry();
                 }),
                 new Command<>("Report CLOSED-LOST by country", CommandType.REPORT_CLOSED_LOST_BY_COUNTRY).addOnRun((cr) -> {
-                    countryService.reportClosedLostByCountry();
+                    countryReportService.reportClosedLostByCountry();
                 }),
                 new Command<>("Report OPEN by country", CommandType.REPORT_OPEN_BY_COUNTRY).addOnRun((cr) -> {
-                    countryService.reportOpenByCountry();
+                    countryReportService.reportOpenByCountry();
                 }),
 
-                // City commands
+                // City report commands
                 new Command<>("Report Opportunity by city", CommandType.REPORT_OPPORTUNITY_BY_CITY).addOnRun((cr) -> {
-                    cityService.reportOpportunityByCity();
+                    cityReportService.reportOpportunityByCity();
                 }),
                 new Command<>("Report CLOSED-WON by city", CommandType.REPORT_CLOSED_WON_BY_CITY).addOnRun((cr) -> {
-                    cityService.reportClosedWonByCity();
+                    cityReportService.reportClosedWonByCity();
                 }),
                 new Command<>("Report CLOSED-LOST by city", CommandType.REPORT_CLOSED_LOST_BY_CITY).addOnRun((cr) -> {
-                    cityService.reportClosedLostByCity();
+                    cityReportService.reportClosedLostByCity();
                 }),
                 new Command<>("Report OPEN by city", CommandType.REPORT_OPEN_BY_CITY).addOnRun((cr) -> {
-                    cityService.reportOpenByCity();
+                    cityReportService.reportOpenByCity();
                 }),
 
-                // Industry commands
+                // Industry report commands
                 new Command<>("Report Opportunity by industry", CommandType.REPORT_OPPORTUNITY_BY_INDUSTRY).addOnRun((cr) -> {
-                    industryService.reportOpportunityByIndustry();
+                    industryReportService.reportOpportunityByIndustry();
                 }),
                 new Command<>("Report CLOSED-WON by industry", CommandType.REPORT_CLOSED_WON_BY_INDUSTRY).addOnRun((cr) -> {
-                    industryService.reportClosedWonByIndustry();
+                    industryReportService.reportClosedWonByIndustry();
                 }),
                 new Command<>("Report CLOSED-LOST by industry", CommandType.REPORT_CLOSED_LOST_BY_INDUSTRY).addOnRun((cr) -> {
-                    industryService.reportClosedLostByIndustry();
+                    industryReportService.reportClosedLostByIndustry();
                 }),
                 new Command<>("Report OPEN by industry", CommandType.REPORT_OPEN_BY_INDUSTRY).addOnRun((cr) -> {
-                    industryService.reportOpenByIndustry();
+                    industryReportService.reportOpenByIndustry();
                 }),
 
+                //EmployeeCount report commands
+                new Command<>("Mean EmployeeCount", CommandType.MEAN_EMPLOYEE_COUNT).addOnRun((cr) -> {
+                    employeeCountReportService.meanEmployeecount();
+                }),
+                new Command<>("Max EmployeeCount", CommandType.MAX_EMPLOYEE_COUNT).addOnRun((cr) -> {
+                    employeeCountReportService.maxEmployeecount();
+                }),
+                new Command<>("Min EmployeeCount", CommandType.MIN_EMPLOYEE_COUNT).addOnRun((cr) -> {
+                    employeeCountReportService.minEmployeecount();
+                }),
+
+                //Quantity report commands
+                new Command<>("Mean Quantity", CommandType.MEAN_QUANTITY).addOnRun((cr) -> {
+                    quantityReportService.meanQuantity();
+                }),
+                new Command<>("Max Quantity", CommandType.MAX_QUANTITY).addOnRun((cr) -> {
+                    quantityReportService.maxQuantity();
+                }),
+                new Command<>("Min Quantity", CommandType.MIN_QUANTITY).addOnRun((cr) -> {
+                    quantityReportService.minQuantity();
+                }),
+
+                //Opportunity report commands
+                new Command<>("Mean Opps per Account", CommandType.MEAN_OPPS_PER_ACCOUNT).addOnRun((cr) -> {
+                    accountReportService.meanOppsPerAccount();
+                }),
+                new Command<>("Max Opps per Account", CommandType.MAX_OPPS_PER_ACCOUNT).addOnRun((cr) -> {
+                    accountReportService.maxOppsPerAccount();
+                }),
+                new Command<>("Min Opps per Account", CommandType.MIN_OPPS_PER_ACCOUNT).addOnRun((cr) -> {
+                    accountReportService.minOppsPerAccount();
+                }),
         });
 
         // Run event when a command is executed

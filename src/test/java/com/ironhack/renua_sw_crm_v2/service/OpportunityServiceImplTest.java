@@ -1,11 +1,10 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
-import com.ironhack.renua_sw_crm_v2.Repository.LeadRepository;
-import com.ironhack.renua_sw_crm_v2.Repository.SalesRepRepository;
+import com.ironhack.renua_sw_crm_v2.repository.LeadRepository;
+import com.ironhack.renua_sw_crm_v2.repository.SalesRepRepository;
 import com.ironhack.renua_sw_crm_v2.enums.OpportunityStatus;
 import com.ironhack.renua_sw_crm_v2.error.NotFoundException;
 import com.ironhack.renua_sw_crm_v2.utils.TestDataService;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

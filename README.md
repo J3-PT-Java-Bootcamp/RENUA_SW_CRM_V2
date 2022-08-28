@@ -64,11 +64,11 @@ Using the "help" command you can find the following commands:
     close-lost :id                       - Close an opportunity as lost by id
     close-won :id                        - Close an opportunity as won by id
     report lead by salesrep              - show number of leads by salesrep
-    report opportunity by salesrep       - show number of opportunities by salesrep
-    report closed won by salesrep        - show number of closed won opportunities by salesrep
-    report open by salesrep              - show opened number of opportunities by salesrep
-    report opportunity by :attribute     - show number of opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]
-    report closed won by :attribute      - show number of closed won opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]
-    report open by :attribute            - show number of opened opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]
-    report closed lost by :attribute     - show number of closed lost opportunities by attribute, where attribute is one of the following: [the product], [city], [country], [industry]
+    report opportunity by :attribute     - show number of opportunities by attribute, where attribute is one of the following: [salesRep], [the product], [city], [country] or [industry]
+    report closed won by :attribute      - show number of closed won opportunities by attribute, where attribute is one of the following: [salesRep], [the product], [city], [country] or [industry]
+    report open by :attribute            - show number of opened opportunities by attribute, where attribute is one of the following: [salesRep], [the product], [city], [country] or [industry]
+    report closed lost by :attribute     - show number of closed lost opportunities by attribute, where attribute is one of the following: [the product], [city], [country] or [industry]
+    Mean :attribute                      - show the mean by attribute, where attribute is one of the following: [Opps per Account], [EmployeeAccount] or [Quantity]
+    Max :attribute                       - show the maximum by attribute, where attribute is one of the following: [Opps per Account], [EmployeeAccount] or [Quantity]
+    Min :attribute                       - show the minimum by attribute, where attribute is one of the following: [Opps per Account], [EmployeeAccount] or [Quantity]
     exit                                 - Exit the program

@@ -1,6 +1,6 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
-import com.ironhack.renua_sw_crm_v2.Repository.ContactRepository;
+import com.ironhack.renua_sw_crm_v2.repository.ContactRepository;
 import com.ironhack.renua_sw_crm_v2.error.ErrorHelper;
 import com.ironhack.renua_sw_crm_v2.error.NotFoundException;
 import com.ironhack.renua_sw_crm_v2.model.Contact;

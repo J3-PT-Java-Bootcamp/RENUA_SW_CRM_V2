@@ -14,11 +14,4 @@ public interface SalesRepService {
     SalesRep getById(Long id) throws NotFoundException;
 
     SalesRep createSalesRep();
-
-    void reportLeadBySalesRep();
-
-    void reportOpportunityBySalesRep();
-
-    void reportClosedWonBySalesRep();
-    void reportOpenBySalesRep();
 }

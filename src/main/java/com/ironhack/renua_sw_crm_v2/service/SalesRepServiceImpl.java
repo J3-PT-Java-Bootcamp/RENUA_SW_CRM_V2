@@ -1,6 +1,6 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
-import com.ironhack.renua_sw_crm_v2.Repository.SalesRepRepository;
+import com.ironhack.renua_sw_crm_v2.repository.SalesRepRepository;
 import com.ironhack.renua_sw_crm_v2.error.ErrorHelper;
 import com.ironhack.renua_sw_crm_v2.error.NotFoundException;
 import com.ironhack.renua_sw_crm_v2.model.SalesRep;
@@ -25,34 +25,6 @@ public class SalesRepServiceImpl implements SalesRepService {
         System.out.print("SalesRep created: " + salesRep.getId() + "\n");
 
         return salesRep;
-    }
-
-    @Override
-    public void reportLeadBySalesRep() {
-        salesRepRepository.reportLeadBySalesRep().forEach(leadsBySalesRep -> {
-            System.out.println(leadsBySalesRep[0].toString() + " " + leadsBySalesRep[1].toString());
-        });
-    }
-
-    @Override
-    public void reportOpportunityBySalesRep() {
-        salesRepRepository.reportOpportunityBySalesRep().forEach(oppBySalesRep -> {
-            System.out.println(oppBySalesRep[0].toString() + " " + oppBySalesRep[1].toString());
-        });
-    }
-
-    @Override
-    public void reportClosedWonBySalesRep() {
-        salesRepRepository.reportClosedWonBySalesRep().forEach(oppCloseWonBySalesRep -> {
-            System.out.println(oppCloseWonBySalesRep[0].toString() + " " + oppCloseWonBySalesRep[1].toString());
-        });
-    }
-
-    @Override
-    public void reportOpenBySalesRep() {
-        salesRepRepository.reportOpenBySalesRep().forEach(oppOpenBySalesRep -> {
-            System.out.println(oppOpenBySalesRep[0].toString() + " " + oppOpenBySalesRep[1].toString());
-        });
     }
 
     @Override

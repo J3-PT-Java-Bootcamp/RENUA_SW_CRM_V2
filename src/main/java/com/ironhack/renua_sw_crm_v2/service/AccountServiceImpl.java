@@ -1,6 +1,6 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
-import com.ironhack.renua_sw_crm_v2.Repository.AccountRepository;
+import com.ironhack.renua_sw_crm_v2.repository.AccountRepository;
 import com.ironhack.renua_sw_crm_v2.enums.IndustryType;
 import com.ironhack.renua_sw_crm_v2.error.ErrorHelper;
 import com.ironhack.renua_sw_crm_v2.error.NotFoundException;

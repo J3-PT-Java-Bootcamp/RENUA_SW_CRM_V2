@@ -1,4 +1,4 @@
-package com.ironhack.renua_sw_crm_v2.Repository;
+package com.ironhack.renua_sw_crm_v2.repository;
 
 import com.ironhack.renua_sw_crm_v2.utils.TestDataService;
 import org.junit.jupiter.api.BeforeEach;
@@ -126,5 +126,23 @@ class OpportunityRepositoryTest {
         var report = opportunityRepository.reportOpenByIndustry();
         var one = new BigInteger("1");
         assertEquals(one, report.get(0)[1]);
+    }
+
+    @Test
+    void test_meanQuantity_ok() {
+        var report = opportunityRepository.meanQuantity();
+        assertEquals(7.50, report);
+    }
+
+    @Test
+    void test_maxQuantity_ok() {
+        var report = opportunityRepository.maxQuantity();
+        assertEquals(10.00, report);
+    }
+
+    @Test
+    void test_minQuantity_ok() {
+        var report = opportunityRepository.minQuantity();
+        assertEquals(5.00, report);
     }
 }

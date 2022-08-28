@@ -1,4 +1,4 @@
-package com.ironhack.renua_sw_crm_v2.Repository;
+package com.ironhack.renua_sw_crm_v2.repository;
 
 import com.ironhack.renua_sw_crm_v2.model.Contact;
 import org.springframework.data.jpa.repository.JpaRepository;

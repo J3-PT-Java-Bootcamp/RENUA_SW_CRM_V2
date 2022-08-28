@@ -1,6 +1,6 @@
 package com.ironhack.renua_sw_crm_v2.utils;
 
-import com.ironhack.renua_sw_crm_v2.Repository.*;
+import com.ironhack.renua_sw_crm_v2.repository.*;
 import com.ironhack.renua_sw_crm_v2.enums.IndustryType;
 import com.ironhack.renua_sw_crm_v2.enums.OpportunityStatus;
 import com.ironhack.renua_sw_crm_v2.enums.ProductType;

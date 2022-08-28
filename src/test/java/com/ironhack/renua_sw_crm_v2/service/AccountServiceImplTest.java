@@ -1,8 +1,8 @@
 package com.ironhack.renua_sw_crm_v2.service;
 
-import com.ironhack.renua_sw_crm_v2.Repository.ContactRepository;
-import com.ironhack.renua_sw_crm_v2.Repository.OpportunityRepository;
-import com.ironhack.renua_sw_crm_v2.Repository.SalesRepRepository;
+import com.ironhack.renua_sw_crm_v2.repository.ContactRepository;
+import com.ironhack.renua_sw_crm_v2.repository.OpportunityRepository;
+import com.ironhack.renua_sw_crm_v2.repository.SalesRepRepository;
 import com.ironhack.renua_sw_crm_v2.enums.OpportunityStatus;
 import com.ironhack.renua_sw_crm_v2.enums.ProductType;
 import com.ironhack.renua_sw_crm_v2.error.NotFoundException;
